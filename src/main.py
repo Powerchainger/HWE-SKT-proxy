@@ -7,6 +7,7 @@ q = queue.Queue()
 
 
 def send_data_to_server(measurements):
+    requests.post('http://localhost:5000/', json=measurements)
     print(measurements)
 
 
@@ -20,6 +21,7 @@ def process_q():
 
 
 def start(ipaddr):
+    print("ip address:", ipaddr)
     while True:
         r = requests.get(f"http://{ipaddr}/api/v1/data")
         data = r.json()
@@ -34,6 +36,7 @@ class MyListener(ServiceListener):
         info = zc.get_service_info(type_, name)
         addr = info.addresses[0]
         ipaddr = ".".join([str(b) for b in addr])
+        print(ipaddr)
         start(ipaddr)
 
 
