@@ -1,12 +1,27 @@
-from zeroconf import ServiceBrowser, ServiceListener, Zeroconf
+from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
 import requests
 import time
 import queue as q
 import logging
+import logging.handlers
 
 POLL_PLUG_DATA_SLEEP = 1
-QUEUE_WORKER_SLEEP = 5
+QUEUE_WORKER_SLEEP = 30000000
+SOCKET_CONN_ERR_SLEEP = 2
+SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 
+logging.basicConfig(
+  handlers=[
+    logging.StreamHandler(),
+    logging.handlers.RotatingFileHandler(
+      'proxy.log',
+      maxBytes=10240000,
+      backupCount=5
+    )
+  ],
+  level=logging.INFO,
+  format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
+)
 logger = logging.getLogger(__name__)
 queue = q.Queue()
 
@@ -14,10 +29,9 @@ queue = q.Queue()
 def send_data_to_server(measurements):
     # TODO: Dynamic url to differentiate between raspberries
     # TODO: API Authorization
-    print("sending data to server")
+    logger.info("sending data to server")
     try:
         requests.post('http://localhost:5000/', json=measurements)
-        print(measurements)
     except requests.exceptions.ConnectionError as e:
         logger.error("error connecting to server", exc_info=e)
 
@@ -31,11 +45,17 @@ def start_queue_worker():
         time.sleep(QUEUE_WORKER_SLEEP)
 
 
-def poll_plug_data(ipaddr):
+def poll_socket_data(ipaddr):
     while True:
-        # TODO: Failure fetching plug data
-        r = requests.get(f"http://{ipaddr}/api/v1/data")
+        logger.info("polling socket data")
+        try:
+            r = requests.get(f"http://{ipaddr}/api/v1/data")
+        except requests.exceptions.ConnectionError as e:
+            logger.error("error fetching data from socket", exc_info=e)
+            time.sleep(SOCKET_CONN_ERR_SLEEP)
+            continue
         data = r.json()
+        logger.info(f"received: {data}")
         data["timestamp"] = time.time()
         queue.put(data)
         time.sleep(POLL_PLUG_DATA_SLEEP)
@@ -47,18 +67,25 @@ class MyListener(ServiceListener):
         info = zc.get_service_info(type_, name)
         addr = info.addresses[0]
         ipaddr = ".".join([str(b) for b in addr])
-        print("Connected to smart plug with ip address:", ipaddr)
-        poll_plug_data(ipaddr)
+        logger.info(f"Connected to smart plug with ip address: {ipaddr}")
+        poll_socket_data(ipaddr)
 
 
-def start_smart_plug_poller():
+def start_socket_data_poller():
+    devices = []
+
+    while SOCKET_DEVICE_NAME not in devices:
+        devices = ZeroconfServiceTypes.find()
+        logger.error("error connecting to socket")
+        time.sleep(SOCKET_CONN_ERR_SLEEP)
+    
+    logger.info("socket found, connecting..")
     # ServiceBrowser is started async
-    # TODO: Connection failure to smart plug
-    ServiceBrowser(Zeroconf(), "_hwenergy._tcp.local.", MyListener())
+    ServiceBrowser(Zeroconf(), SOCKET_DEVICE_NAME, MyListener())
 
 
 def main():
-    start_smart_plug_poller()
+    start_socket_data_poller()
     start_queue_worker()
 
 

@@ -1,0 +1,1800 @@
+2022-06-29 21:11:41,167 ERROR PID_5753 error connecting to socket
+2022-06-29 21:11:43,173 INFO PID_5753 socket found, connecting..
+2022-06-29 21:11:43,178 INFO PID_5753 sending data to server
+2022-06-29 21:11:43,193 ERROR PID_5753 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108e11af0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e11af0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 33, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e11af0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:11:43,418 INFO PID_5753 polling socket data
+2022-06-29 21:11:43,458 INFO PID_5753 received:
+2022-06-29 21:11:44,462 INFO PID_5753 polling socket data
+2022-06-29 21:11:44,505 INFO PID_5753 received:
+2022-06-29 21:11:45,508 INFO PID_5753 polling socket data
+2022-06-29 21:11:45,545 INFO PID_5753 received:
+2022-06-29 21:11:46,550 INFO PID_5753 polling socket data
+2022-06-29 21:11:46,586 INFO PID_5753 received:
+2022-06-29 21:11:47,590 INFO PID_5753 polling socket data
+2022-06-29 21:11:47,630 INFO PID_5753 received:
+2022-06-29 21:11:48,635 INFO PID_5753 polling socket data
+2022-06-29 21:11:48,672 INFO PID_5753 received:
+2022-06-29 21:11:49,676 INFO PID_5753 polling socket data
+2022-06-29 21:11:49,713 INFO PID_5753 received:
+2022-06-29 21:11:50,713 INFO PID_5753 polling socket data
+2022-06-29 21:11:50,747 INFO PID_5753 received:
+2022-06-29 21:11:51,747 INFO PID_5753 polling socket data
+2022-06-29 21:11:51,787 INFO PID_5753 received:
+2022-06-29 21:11:52,790 INFO PID_5753 polling socket data
+2022-06-29 21:11:52,822 INFO PID_5753 received:
+2022-06-29 21:11:53,827 INFO PID_5753 polling socket data
+2022-06-29 21:11:53,859 INFO PID_5753 received:
+2022-06-29 21:11:54,863 INFO PID_5753 polling socket data
+2022-06-29 21:11:54,897 INFO PID_5753 received:
+2022-06-29 21:11:55,901 INFO PID_5753 polling socket data
+2022-06-29 21:11:55,932 INFO PID_5753 received:
+2022-06-29 21:11:56,936 INFO PID_5753 polling socket data
+2022-06-29 21:11:56,992 INFO PID_5753 received:
+2022-06-29 21:11:57,994 INFO PID_5753 polling socket data
+2022-06-29 21:11:58,039 INFO PID_5753 received:
+2022-06-29 21:11:59,045 INFO PID_5753 polling socket data
+2022-06-29 21:11:59,080 INFO PID_5753 received:
+2022-06-29 21:12:00,083 INFO PID_5753 polling socket data
+2022-06-29 21:12:00,149 INFO PID_5753 received:
+2022-06-29 21:12:01,154 INFO PID_5753 polling socket data
+2022-06-29 21:12:01,191 INFO PID_5753 received:
+2022-06-29 21:12:02,193 INFO PID_5753 polling socket data
+2022-06-29 21:12:02,230 INFO PID_5753 received:
+2022-06-29 21:12:03,234 INFO PID_5753 polling socket data
+2022-06-29 21:12:03,265 INFO PID_5753 received:
+2022-06-29 21:12:04,268 INFO PID_5753 polling socket data
+2022-06-29 21:12:04,306 INFO PID_5753 received:
+2022-06-29 21:12:05,310 INFO PID_5753 polling socket data
+2022-06-29 21:12:05,360 INFO PID_5753 received:
+2022-06-29 21:12:06,361 INFO PID_5753 polling socket data
+2022-06-29 21:12:06,390 INFO PID_5753 received:
+2022-06-29 21:12:07,393 INFO PID_5753 polling socket data
+2022-06-29 21:12:07,434 INFO PID_5753 received:
+2022-06-29 21:12:08,435 INFO PID_5753 polling socket data
+2022-06-29 21:12:08,478 INFO PID_5753 received:
+2022-06-29 21:12:09,479 INFO PID_5753 polling socket data
+2022-06-29 21:12:09,508 INFO PID_5753 received:
+2022-06-29 21:12:10,510 INFO PID_5753 polling socket data
+2022-06-29 21:12:10,547 INFO PID_5753 received:
+2022-06-29 21:12:11,552 INFO PID_5753 polling socket data
+2022-06-29 21:12:11,603 INFO PID_5753 received:
+2022-06-29 21:12:12,606 INFO PID_5753 polling socket data
+2022-06-29 21:12:12,652 INFO PID_5753 received:
+2022-06-29 21:12:13,206 INFO PID_5753 sending data to server
+2022-06-29 21:12:13,211 ERROR PID_5753 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108e33730>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e33730>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 33, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e33730>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:12:13,654 INFO PID_5753 polling socket data
+2022-06-29 21:12:13,698 INFO PID_5753 received:
+2022-06-29 21:12:14,702 INFO PID_5753 polling socket data
+2022-06-29 21:12:14,737 INFO PID_5753 received:
+2022-06-29 21:12:15,743 INFO PID_5753 polling socket data
+2022-06-29 21:12:15,775 INFO PID_5753 received:
+2022-06-29 21:12:16,779 INFO PID_5753 polling socket data
+2022-06-29 21:12:16,830 INFO PID_5753 received:
+2022-06-29 21:12:17,834 INFO PID_5753 polling socket data
+2022-06-29 21:12:17,879 INFO PID_5753 received:
+2022-06-29 21:12:18,884 INFO PID_5753 polling socket data
+2022-06-29 21:12:18,917 INFO PID_5753 received:
+2022-06-29 21:12:19,920 INFO PID_5753 polling socket data
+2022-06-29 21:12:19,965 INFO PID_5753 received:
+2022-06-29 21:12:20,969 INFO PID_5753 polling socket data
+2022-06-29 21:12:21,010 INFO PID_5753 received:
+2022-06-29 21:12:22,013 INFO PID_5753 polling socket data
+2022-06-29 21:12:22,064 INFO PID_5753 received:
+2022-06-29 21:12:23,068 INFO PID_5753 polling socket data
+2022-06-29 21:12:23,109 INFO PID_5753 received:
+2022-06-29 21:12:24,111 INFO PID_5753 polling socket data
+2022-06-29 21:12:24,145 INFO PID_5753 received:
+2022-06-29 21:12:25,150 INFO PID_5753 polling socket data
+2022-06-29 21:12:25,179 INFO PID_5753 received:
+2022-06-29 21:12:26,183 INFO PID_5753 polling socket data
+2022-06-29 21:12:26,230 INFO PID_5753 received:
+2022-06-29 21:12:27,234 INFO PID_5753 polling socket data
+2022-06-29 21:12:27,277 INFO PID_5753 received:
+2022-06-29 21:12:28,279 INFO PID_5753 polling socket data
+2022-06-29 21:12:28,322 INFO PID_5753 received:
+2022-06-29 21:12:29,325 INFO PID_5753 polling socket data
+2022-06-29 21:12:29,366 INFO PID_5753 received:
+2022-06-29 21:12:30,368 INFO PID_5753 polling socket data
+2022-06-29 21:12:30,403 INFO PID_5753 received:
+2022-06-29 21:12:31,408 INFO PID_5753 polling socket data
+2022-06-29 21:12:31,536 INFO PID_5753 received:
+2022-06-29 21:12:32,537 INFO PID_5753 polling socket data
+2022-06-29 21:12:32,645 INFO PID_5753 received:
+2022-06-29 21:12:33,650 INFO PID_5753 polling socket data
+2022-06-29 21:12:33,696 INFO PID_5753 received:
+2022-06-29 21:12:34,701 INFO PID_5753 polling socket data
+2022-06-29 21:12:34,741 INFO PID_5753 received:
+2022-06-29 21:12:35,745 INFO PID_5753 polling socket data
+2022-06-29 21:12:35,777 INFO PID_5753 received:
+2022-06-29 21:12:36,779 INFO PID_5753 polling socket data
+2022-06-29 21:12:36,825 INFO PID_5753 received:
+2022-06-29 21:12:37,829 INFO PID_5753 polling socket data
+2022-06-29 21:12:37,866 INFO PID_5753 received:
+2022-06-29 21:12:38,867 INFO PID_5753 polling socket data
+2022-06-29 21:12:38,914 INFO PID_5753 received:
+2022-06-29 21:12:39,919 INFO PID_5753 polling socket data
+2022-06-29 21:12:39,957 INFO PID_5753 received:
+2022-06-29 21:12:40,959 INFO PID_5753 polling socket data
+2022-06-29 21:12:40,997 INFO PID_5753 received:
+2022-06-29 21:12:42,001 INFO PID_5753 polling socket data
+2022-06-29 21:12:42,042 INFO PID_5753 received:
+2022-06-29 21:12:43,042 INFO PID_5753 polling socket data
+2022-06-29 21:12:43,073 INFO PID_5753 received:
+2022-06-29 21:12:43,215 INFO PID_5753 sending data to server
+2022-06-29 21:12:43,217 ERROR PID_5753 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108e33460>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e33460>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 33, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108e33460>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:12:44,076 INFO PID_5753 polling socket data
+2022-06-29 21:12:44,111 INFO PID_5753 received:
+2022-06-29 21:12:45,114 INFO PID_5753 polling socket data
+2022-06-29 21:12:45,181 INFO PID_5753 received:
+2022-06-29 21:12:46,186 INFO PID_5753 polling socket data
+2022-06-29 21:12:46,216 INFO PID_5753 received:
+2022-06-29 21:12:47,220 INFO PID_5753 polling socket data
+2022-06-29 21:12:47,258 INFO PID_5753 received:
+2022-06-29 21:12:48,262 INFO PID_5753 polling socket data
+2022-06-29 21:12:48,308 INFO PID_5753 received:
+2022-06-29 21:12:49,313 INFO PID_5753 polling socket data
+2022-06-29 21:12:49,341 INFO PID_5753 received:
+2022-06-29 21:12:50,343 INFO PID_5753 polling socket data
+2022-06-29 21:12:50,375 INFO PID_5753 received:
+2022-06-29 21:12:51,376 INFO PID_5753 polling socket data
+2022-06-29 21:12:51,416 INFO PID_5753 received:
+2022-06-29 21:12:52,421 INFO PID_5753 polling socket data
+2022-06-29 21:12:52,462 INFO PID_5753 received:
+2022-06-29 21:12:53,464 INFO PID_5753 polling socket data
+2022-06-29 21:12:53,512 INFO PID_5753 received:
+2022-06-29 21:12:54,513 INFO PID_5753 polling socket data
+2022-06-29 21:12:54,574 INFO PID_5753 received:
+2022-06-29 21:12:55,575 INFO PID_5753 polling socket data
+2022-06-29 21:12:55,615 INFO PID_5753 received:
+2022-06-29 21:12:56,619 INFO PID_5753 polling socket data
+2022-06-29 21:12:56,660 INFO PID_5753 received:
+2022-06-29 21:12:57,663 INFO PID_5753 polling socket data
+2022-06-29 21:12:57,708 INFO PID_5753 received:
+2022-06-29 21:12:58,709 INFO PID_5753 polling socket data
+2022-06-29 21:12:58,752 INFO PID_5753 received:
+2022-06-29 21:12:59,753 INFO PID_5753 polling socket data
+2022-06-29 21:12:59,784 INFO PID_5753 received:
+2022-06-29 21:13:00,790 INFO PID_5753 polling socket data
+2022-06-29 21:13:00,824 INFO PID_5753 received:
+2022-06-29 21:13:01,829 INFO PID_5753 polling socket data
+2022-06-29 21:13:01,865 INFO PID_5753 received:
+2022-06-29 21:13:02,870 INFO PID_5753 polling socket data
+2022-06-29 21:13:02,910 INFO PID_5753 received:
+2022-06-29 21:13:03,911 INFO PID_5753 polling socket data
+2022-06-29 21:13:03,955 INFO PID_5753 received:
+2022-06-29 21:13:04,959 INFO PID_5753 polling socket data
+2022-06-29 21:13:05,000 INFO PID_5753 received:
+2022-06-29 21:13:06,005 INFO PID_5753 polling socket data
+2022-06-29 21:13:06,043 INFO PID_5753 received:
+2022-06-29 21:13:07,046 INFO PID_5753 polling socket data
+2022-06-29 21:13:07,080 INFO PID_5753 received:
+2022-06-29 21:13:08,084 INFO PID_5753 polling socket data
+2022-06-29 21:13:08,121 INFO PID_5753 received:
+2022-06-29 21:13:09,126 INFO PID_5753 polling socket data
+2022-06-29 21:13:09,162 INFO PID_5753 received:
+2022-06-29 21:13:10,166 INFO PID_5753 polling socket data
+2022-06-29 21:13:10,222 INFO PID_5753 received:
+2022-06-29 21:13:11,226 INFO PID_5753 polling socket data
+2022-06-29 21:13:11,279 INFO PID_5753 received:
+2022-06-29 21:13:12,280 INFO PID_5753 polling socket data
+2022-06-29 21:13:12,329 INFO PID_5753 received:
+2022-06-29 21:13:13,222 INFO PID_5753 sending data to server
+2022-06-29 21:13:13,227 ERROR PID_5753 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108f989a0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108f989a0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 33, in send_data_to_server
+    try:
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108f989a0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:13:13,334 INFO PID_5753 polling socket data
+2022-06-29 21:13:13,378 INFO PID_5753 received:
+2022-06-29 21:13:20,220 ERROR PID_5813 error connecting to socket
+2022-06-29 21:13:22,225 INFO PID_5813 socket found, connecting..
+2022-06-29 21:13:22,230 INFO PID_5813 sending data to server
+2022-06-29 21:13:22,247 ERROR PID_5813 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108b4dbe0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108b4dbe0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108b4dbe0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:13:22,417 INFO PID_5813 polling socket data
+2022-06-29 21:13:22,444 INFO PID_5813 received:
+2022-06-29 21:13:23,446 INFO PID_5813 polling socket data
+2022-06-29 21:13:23,567 INFO PID_5813 received:
+2022-06-29 21:13:24,570 INFO PID_5813 polling socket data
+2022-06-29 21:13:24,611 INFO PID_5813 received:
+2022-06-29 21:13:25,613 INFO PID_5813 polling socket data
+2022-06-29 21:13:25,642 INFO PID_5813 received:
+2022-06-29 21:13:26,644 INFO PID_5813 polling socket data
+2022-06-29 21:13:26,687 INFO PID_5813 received:
+2022-06-29 21:13:27,692 INFO PID_5813 polling socket data
+2022-06-29 21:13:27,737 INFO PID_5813 received:
+2022-06-29 21:13:28,738 INFO PID_5813 polling socket data
+2022-06-29 21:13:28,780 INFO PID_5813 received:
+2022-06-29 21:13:29,783 INFO PID_5813 polling socket data
+2022-06-29 21:13:29,812 INFO PID_5813 received:
+2022-06-29 21:13:30,816 INFO PID_5813 polling socket data
+2022-06-29 21:13:30,854 INFO PID_5813 received:
+2022-06-29 21:13:31,859 INFO PID_5813 polling socket data
+2022-06-29 21:13:31,920 INFO PID_5813 received:
+2022-06-29 21:13:32,924 INFO PID_5813 polling socket data
+2022-06-29 21:13:32,956 INFO PID_5813 received:
+2022-06-29 21:13:33,961 INFO PID_5813 polling socket data
+2022-06-29 21:13:33,996 INFO PID_5813 received:
+2022-06-29 21:13:34,999 INFO PID_5813 polling socket data
+2022-06-29 21:13:35,027 INFO PID_5813 received:
+2022-06-29 21:13:36,030 INFO PID_5813 polling socket data
+2022-06-29 21:13:36,063 INFO PID_5813 received:
+2022-06-29 21:13:37,065 INFO PID_5813 polling socket data
+2022-06-29 21:13:37,094 INFO PID_5813 received:
+2022-06-29 21:13:38,100 INFO PID_5813 polling socket data
+2022-06-29 21:13:38,137 INFO PID_5813 received:
+2022-06-29 21:13:39,143 INFO PID_5813 polling socket data
+2022-06-29 21:13:39,232 INFO PID_5813 received:
+2022-06-29 21:13:40,236 INFO PID_5813 polling socket data
+2022-06-29 21:13:40,275 INFO PID_5813 received:
+2022-06-29 21:13:41,278 INFO PID_5813 polling socket data
+2022-06-29 21:13:41,317 INFO PID_5813 received:
+2022-06-29 21:13:42,322 INFO PID_5813 polling socket data
+2022-06-29 21:13:42,362 INFO PID_5813 received:
+2022-06-29 21:13:43,368 INFO PID_5813 polling socket data
+2022-06-29 21:13:43,414 INFO PID_5813 received:
+2022-06-29 21:13:44,419 INFO PID_5813 polling socket data
+2022-06-29 21:13:44,457 INFO PID_5813 received:
+2022-06-29 21:13:45,460 INFO PID_5813 polling socket data
+2022-06-29 21:13:45,542 INFO PID_5813 received:
+2022-06-29 21:13:46,544 INFO PID_5813 polling socket data
+2022-06-29 21:13:46,580 INFO PID_5813 received:
+2022-06-29 21:13:47,584 INFO PID_5813 polling socket data
+2022-06-29 21:13:47,634 INFO PID_5813 received:
+2022-06-29 21:13:48,639 INFO PID_5813 polling socket data
+2022-06-29 21:13:48,671 INFO PID_5813 received:
+2022-06-29 21:13:49,674 INFO PID_5813 polling socket data
+2022-06-29 21:13:49,712 INFO PID_5813 received:
+2022-06-29 21:13:50,715 INFO PID_5813 polling socket data
+2022-06-29 21:13:50,750 INFO PID_5813 received:
+2022-06-29 21:13:51,755 INFO PID_5813 polling socket data
+2022-06-29 21:13:51,797 INFO PID_5813 received:
+2022-06-29 21:13:52,256 INFO PID_5813 sending data to server
+2022-06-29 21:13:52,258 ERROR PID_5813 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x108b71a00>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108b71a00>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x108b71a00>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:13:52,800 INFO PID_5813 polling socket data
+2022-06-29 21:13:52,838 INFO PID_5813 received:
+2022-06-29 21:13:53,843 INFO PID_5813 polling socket data
+2022-06-29 21:13:53,872 INFO PID_5813 received:
+2022-06-29 21:13:54,876 INFO PID_5813 polling socket data
+2022-06-29 21:13:54,907 INFO PID_5813 received:
+2022-06-29 21:13:55,911 INFO PID_5813 polling socket data
+2022-06-29 21:13:55,962 INFO PID_5813 received:
+2022-06-29 21:13:56,964 INFO PID_5813 polling socket data
+2022-06-29 21:13:56,998 INFO PID_5813 received:
+2022-06-29 21:13:58,000 INFO PID_5813 polling socket data
+2022-06-29 21:13:58,050 INFO PID_5813 received:
+2022-06-29 21:13:59,055 INFO PID_5813 polling socket data
+2022-06-29 21:13:59,179 INFO PID_5813 received:
+2022-06-29 21:14:00,183 INFO PID_5813 polling socket data
+2022-06-29 21:14:00,219 INFO PID_5813 received:
+2022-06-29 21:14:01,224 INFO PID_5813 polling socket data
+2022-06-29 21:14:01,268 INFO PID_5813 received:
+2022-06-29 21:14:02,273 INFO PID_5813 polling socket data
+2022-06-29 21:14:02,319 INFO PID_5813 received:
+2022-06-29 21:14:03,322 INFO PID_5813 polling socket data
+2022-06-29 21:14:03,367 INFO PID_5813 received:
+2022-06-29 21:14:04,372 INFO PID_5813 polling socket data
+2022-06-29 21:14:04,411 INFO PID_5813 received:
+2022-06-29 21:14:05,425 INFO PID_5813 polling socket data
+2022-06-29 21:14:05,457 INFO PID_5813 received:
+2022-06-29 21:14:06,462 INFO PID_5813 polling socket data
+2022-06-29 21:14:06,556 INFO PID_5813 received:
+2022-06-29 21:14:13,478 ERROR PID_5870 error connecting to socket
+2022-06-29 21:14:15,483 INFO PID_5870 socket found, connecting..
+2022-06-29 21:14:15,489 INFO PID_5870 sending data to server
+2022-06-29 21:14:15,503 ERROR PID_5870 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x102e9da90>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102e9da90>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102e9da90>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:14:15,757 INFO PID_5870 polling socket data
+2022-06-29 21:14:15,848 INFO PID_5870 received: {data}
+2022-06-29 21:14:16,853 INFO PID_5870 polling socket data
+2022-06-29 21:14:16,900 INFO PID_5870 received: {data}
+2022-06-29 21:14:17,904 INFO PID_5870 polling socket data
+2022-06-29 21:14:17,941 INFO PID_5870 received: {data}
+2022-06-29 21:14:18,945 INFO PID_5870 polling socket data
+2022-06-29 21:14:18,988 INFO PID_5870 received: {data}
+2022-06-29 21:14:19,991 INFO PID_5870 polling socket data
+2022-06-29 21:14:20,037 INFO PID_5870 received: {data}
+2022-06-29 21:14:21,039 INFO PID_5870 polling socket data
+2022-06-29 21:14:21,076 INFO PID_5870 received: {data}
+2022-06-29 21:14:22,082 INFO PID_5870 polling socket data
+2022-06-29 21:14:22,113 INFO PID_5870 received: {data}
+2022-06-29 21:14:23,118 INFO PID_5870 polling socket data
+2022-06-29 21:14:23,160 INFO PID_5870 received: {data}
+2022-06-29 21:14:24,162 INFO PID_5870 polling socket data
+2022-06-29 21:14:24,210 INFO PID_5870 received: {data}
+2022-06-29 21:14:25,212 INFO PID_5870 polling socket data
+2022-06-29 21:14:25,268 INFO PID_5870 received: {data}
+2022-06-29 21:14:26,272 INFO PID_5870 polling socket data
+2022-06-29 21:14:26,302 INFO PID_5870 received: {data}
+2022-06-29 21:14:27,306 INFO PID_5870 polling socket data
+2022-06-29 21:14:27,338 INFO PID_5870 received: {data}
+2022-06-29 21:14:28,345 INFO PID_5870 polling socket data
+2022-06-29 21:14:28,373 INFO PID_5870 received: {data}
+2022-06-29 21:14:29,381 INFO PID_5870 polling socket data
+2022-06-29 21:14:29,411 INFO PID_5870 received: {data}
+2022-06-29 21:14:30,419 INFO PID_5870 polling socket data
+2022-06-29 21:14:30,448 INFO PID_5870 received: {data}
+2022-06-29 21:14:31,455 INFO PID_5870 polling socket data
+2022-06-29 21:14:31,492 INFO PID_5870 received: {data}
+2022-06-29 21:14:32,497 INFO PID_5870 polling socket data
+2022-06-29 21:14:32,537 INFO PID_5870 received: {data}
+2022-06-29 21:14:33,544 INFO PID_5870 polling socket data
+2022-06-29 21:14:33,577 INFO PID_5870 received: {data}
+2022-06-29 21:14:34,584 INFO PID_5870 polling socket data
+2022-06-29 21:14:34,627 INFO PID_5870 received: {data}
+2022-06-29 21:14:35,634 INFO PID_5870 polling socket data
+2022-06-29 21:14:35,669 INFO PID_5870 received: {data}
+2022-06-29 21:14:36,672 INFO PID_5870 polling socket data
+2022-06-29 21:14:36,708 INFO PID_5870 received: {data}
+2022-06-29 21:14:37,713 INFO PID_5870 polling socket data
+2022-06-29 21:14:37,770 INFO PID_5870 received: {data}
+2022-06-29 21:14:38,775 INFO PID_5870 polling socket data
+2022-06-29 21:14:38,805 INFO PID_5870 received: {data}
+2022-06-29 21:14:39,807 INFO PID_5870 polling socket data
+2022-06-29 21:14:39,838 INFO PID_5870 received: {data}
+2022-06-29 21:14:40,843 INFO PID_5870 polling socket data
+2022-06-29 21:14:40,880 INFO PID_5870 received: {data}
+2022-06-29 21:14:41,884 INFO PID_5870 polling socket data
+2022-06-29 21:14:41,914 INFO PID_5870 received: {data}
+2022-06-29 21:14:42,916 INFO PID_5870 polling socket data
+2022-06-29 21:14:42,955 INFO PID_5870 received: {data}
+2022-06-29 21:14:43,960 INFO PID_5870 polling socket data
+2022-06-29 21:14:44,009 INFO PID_5870 received: {data}
+2022-06-29 21:14:45,015 INFO PID_5870 polling socket data
+2022-06-29 21:14:45,048 INFO PID_5870 received: {data}
+2022-06-29 21:14:45,540 INFO PID_5870 sending data to server
+2022-06-29 21:14:45,544 ERROR PID_5870 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x102ebf610>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102ebf610>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102ebf610>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:14:46,053 INFO PID_5870 polling socket data
+2022-06-29 21:14:46,093 INFO PID_5870 received: {data}
+2022-06-29 21:14:47,099 INFO PID_5870 polling socket data
+2022-06-29 21:14:47,130 INFO PID_5870 received: {data}
+2022-06-29 21:14:48,134 INFO PID_5870 polling socket data
+2022-06-29 21:14:48,168 INFO PID_5870 received: {data}
+2022-06-29 21:14:49,174 INFO PID_5870 polling socket data
+2022-06-29 21:14:49,209 INFO PID_5870 received: {data}
+2022-06-29 21:14:50,210 INFO PID_5870 polling socket data
+2022-06-29 21:14:50,251 INFO PID_5870 received: {data}
+2022-06-29 21:14:51,253 INFO PID_5870 polling socket data
+2022-06-29 21:14:51,284 INFO PID_5870 received: {data}
+2022-06-29 21:14:52,289 INFO PID_5870 polling socket data
+2022-06-29 21:14:52,323 INFO PID_5870 received: {data}
+2022-06-29 21:14:53,341 INFO PID_5870 polling socket data
+2022-06-29 21:14:53,387 INFO PID_5870 received: {data}
+2022-06-29 21:14:54,393 INFO PID_5870 polling socket data
+2022-06-29 21:14:54,448 INFO PID_5870 received: {data}
+2022-06-29 21:15:01,087 ERROR PID_5921 error connecting to socket
+2022-06-29 21:15:03,090 INFO PID_5921 socket found, connecting..
+2022-06-29 21:15:03,096 INFO PID_5921 sending data to server
+2022-06-29 21:15:03,110 ERROR PID_5921 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x10a73faf0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10a73faf0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10a73faf0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:15:03,387 INFO PID_5921 polling socket data
+2022-06-29 21:15:03,416 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.275, 'active_power_l1_w': 12.275}
+2022-06-29 21:15:04,418 INFO PID_5921 polling socket data
+2022-06-29 21:15:04,451 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.27, 'active_power_l1_w': 12.27}
+2022-06-29 21:15:05,456 INFO PID_5921 polling socket data
+2022-06-29 21:15:05,493 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.292, 'active_power_l1_w': 12.292}
+2022-06-29 21:15:06,495 INFO PID_5921 polling socket data
+2022-06-29 21:15:06,532 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.271, 'active_power_l1_w': 12.271}
+2022-06-29 21:15:07,533 INFO PID_5921 polling socket data
+2022-06-29 21:15:07,582 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.282, 'active_power_l1_w': 12.282}
+2022-06-29 21:15:08,583 INFO PID_5921 polling socket data
+2022-06-29 21:15:08,615 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.308, 'active_power_l1_w': 12.308}
+2022-06-29 21:15:09,619 INFO PID_5921 polling socket data
+2022-06-29 21:15:09,679 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.291, 'active_power_l1_w': 12.291}
+2022-06-29 21:15:10,683 INFO PID_5921 polling socket data
+2022-06-29 21:15:10,723 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.283, 'active_power_l1_w': 12.283}
+2022-06-29 21:15:11,724 INFO PID_5921 polling socket data
+2022-06-29 21:15:11,763 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.287, 'active_power_l1_w': 12.287}
+2022-06-29 21:15:12,763 INFO PID_5921 polling socket data
+2022-06-29 21:15:12,808 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.283, 'active_power_l1_w': 12.283}
+2022-06-29 21:15:13,812 INFO PID_5921 polling socket data
+2022-06-29 21:15:13,852 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.282, 'active_power_l1_w': 12.282}
+2022-06-29 21:15:14,853 INFO PID_5921 polling socket data
+2022-06-29 21:15:14,893 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.297, 'active_power_l1_w': 12.297}
+2022-06-29 21:15:15,895 INFO PID_5921 polling socket data
+2022-06-29 21:15:15,922 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.303, 'active_power_l1_w': 12.303}
+2022-06-29 21:15:16,928 INFO PID_5921 polling socket data
+2022-06-29 21:15:16,968 INFO PID_5921 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.274, 'active_power_l1_w': 12.274}
+2022-06-29 21:15:24,822 ERROR PID_5959 error connecting to socket
+2022-06-29 21:15:26,827 INFO PID_5959 socket found, connecting..
+2022-06-29 21:15:26,833 INFO PID_5959 sending data to server
+2022-06-29 21:15:26,844 ERROR PID_5959 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x107416af0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107416af0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107416af0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:15:27,354 INFO PID_5959 Connected to smart plug with ip address: 192.168.178.220
+2022-06-29 21:15:27,355 INFO PID_5959 polling socket data
+2022-06-29 21:15:27,392 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.297, 'active_power_l1_w': 12.297}
+2022-06-29 21:15:28,396 INFO PID_5959 polling socket data
+2022-06-29 21:15:28,447 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.301, 'active_power_l1_w': 12.301}
+2022-06-29 21:15:29,450 INFO PID_5959 polling socket data
+2022-06-29 21:15:29,483 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.274, 'active_power_l1_w': 12.274}
+2022-06-29 21:15:30,487 INFO PID_5959 polling socket data
+2022-06-29 21:15:30,525 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.304, 'active_power_l1_w': 12.304}
+2022-06-29 21:15:31,530 INFO PID_5959 polling socket data
+2022-06-29 21:15:31,568 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.321, 'active_power_l1_w': 12.321}
+2022-06-29 21:15:32,573 INFO PID_5959 polling socket data
+2022-06-29 21:15:32,615 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.296, 'active_power_l1_w': 12.296}
+2022-06-29 21:15:33,618 INFO PID_5959 polling socket data
+2022-06-29 21:15:33,697 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.257, 'active_power_l1_w': 12.257}
+2022-06-29 21:15:34,703 INFO PID_5959 polling socket data
+2022-06-29 21:15:34,736 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.317, 'active_power_l1_w': 12.317}
+2022-06-29 21:15:35,740 INFO PID_5959 polling socket data
+2022-06-29 21:15:35,769 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.286, 'active_power_l1_w': 12.286}
+2022-06-29 21:15:36,774 INFO PID_5959 polling socket data
+2022-06-29 21:15:36,825 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.31, 'active_power_l1_w': 12.31}
+2022-06-29 21:15:37,830 INFO PID_5959 polling socket data
+2022-06-29 21:15:37,870 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.304, 'active_power_l1_w': 12.304}
+2022-06-29 21:15:38,871 INFO PID_5959 polling socket data
+2022-06-29 21:15:38,902 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:39,905 INFO PID_5959 polling socket data
+2022-06-29 21:15:39,942 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:40,945 INFO PID_5959 polling socket data
+2022-06-29 21:15:40,997 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:42,001 INFO PID_5959 polling socket data
+2022-06-29 21:15:42,053 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:43,057 INFO PID_5959 polling socket data
+2022-06-29 21:15:43,093 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:44,094 INFO PID_5959 polling socket data
+2022-06-29 21:15:44,137 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:45,138 INFO PID_5959 polling socket data
+2022-06-29 21:15:45,166 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:46,168 INFO PID_5959 polling socket data
+2022-06-29 21:15:46,208 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:47,209 INFO PID_5959 polling socket data
+2022-06-29 21:15:47,245 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:48,249 INFO PID_5959 polling socket data
+2022-06-29 21:15:48,285 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:15:49,286 INFO PID_5959 polling socket data
+2022-06-29 21:15:49,383 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 1.838, 'active_power_l1_w': 1.838}
+2022-06-29 21:15:50,386 INFO PID_5959 polling socket data
+2022-06-29 21:15:50,427 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.234, 'active_power_l1_w': 12.234}
+2022-06-29 21:15:51,432 INFO PID_5959 polling socket data
+2022-06-29 21:15:51,472 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.123, 'active_power_l1_w': 12.123}
+2022-06-29 21:15:52,476 INFO PID_5959 polling socket data
+2022-06-29 21:15:52,507 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.092, 'active_power_l1_w': 12.092}
+2022-06-29 21:15:53,511 INFO PID_5959 polling socket data
+2022-06-29 21:15:53,554 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.095, 'active_power_l1_w': 12.095}
+2022-06-29 21:15:54,559 INFO PID_5959 polling socket data
+2022-06-29 21:15:54,599 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.029, 'active_power_l1_w': 12.029}
+2022-06-29 21:15:55,601 INFO PID_5959 polling socket data
+2022-06-29 21:15:56,852 INFO PID_5959 sending data to server
+2022-06-29 21:15:56,857 ERROR PID_5959 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x1075206d0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1075206d0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1075206d0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:16:26,861 INFO PID_5959 sending data to server
+2022-06-29 21:16:26,865 ERROR PID_5959 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x107520fa0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107520fa0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107520fa0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:16:30,755 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:31,760 INFO PID_5959 polling socket data
+2022-06-29 21:16:31,814 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:32,816 INFO PID_5959 polling socket data
+2022-06-29 21:16:32,863 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:33,867 INFO PID_5959 polling socket data
+2022-06-29 21:16:34,143 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:35,148 INFO PID_5959 polling socket data
+2022-06-29 21:16:35,235 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:36,236 INFO PID_5959 polling socket data
+2022-06-29 21:16:36,271 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:37,274 INFO PID_5959 polling socket data
+2022-06-29 21:16:37,306 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 98, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:38,311 INFO PID_5959 polling socket data
+2022-06-29 21:16:38,350 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:39,354 INFO PID_5959 polling socket data
+2022-06-29 21:16:41,753 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:42,755 INFO PID_5959 polling socket data
+2022-06-29 21:16:43,271 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:44,276 INFO PID_5959 polling socket data
+2022-06-29 21:16:44,666 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:45,668 INFO PID_5959 polling socket data
+2022-06-29 21:16:45,939 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 100, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:46,944 INFO PID_5959 polling socket data
+2022-06-29 21:16:47,354 INFO PID_5959 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 0, 'active_power_l1_w': 0}
+2022-06-29 21:16:48,358 INFO PID_5959 polling socket data
+2022-06-29 21:16:56,869 INFO PID_5959 sending data to server
+2022-06-29 21:16:56,874 ERROR PID_5959 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x10752b820>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10752b820>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10752b820>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:17:16,209 ERROR PID_6025 error connecting to socket
+2022-06-29 21:17:23,223 ERROR PID_6025 error connecting to socket
+2022-06-29 21:17:30,237 ERROR PID_6025 error connecting to socket
+2022-06-29 21:17:37,252 ERROR PID_6025 error connecting to socket
+2022-06-29 21:17:39,254 INFO PID_6025 socket found, connecting..
+2022-06-29 21:17:39,260 INFO PID_6025 sending data to server
+2022-06-29 21:17:39,270 ERROR PID_6025 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x10ff9f3a0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10ff9f3a0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10ff9f3a0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:17:39,440 INFO PID_6025 Connected to smart plug with ip address: 192.168.178.220
+2022-06-29 21:17:39,440 INFO PID_6025 polling socket data
+2022-06-29 21:17:39,470 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.044, 'active_power_l1_w': 12.044}
+2022-06-29 21:17:40,475 INFO PID_6025 polling socket data
+2022-06-29 21:17:40,624 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.047, 'active_power_l1_w': 12.047}
+2022-06-29 21:17:41,626 INFO PID_6025 polling socket data
+2022-06-29 21:17:41,668 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.029, 'active_power_l1_w': 12.029}
+2022-06-29 21:17:42,673 INFO PID_6025 polling socket data
+2022-06-29 21:17:42,718 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.056, 'active_power_l1_w': 12.056}
+2022-06-29 21:17:43,722 INFO PID_6025 polling socket data
+2022-06-29 21:17:43,766 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.054, 'active_power_l1_w': 12.054}
+2022-06-29 21:17:44,768 INFO PID_6025 polling socket data
+2022-06-29 21:17:44,897 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.034, 'active_power_l1_w': 12.034}
+2022-06-29 21:17:45,900 INFO PID_6025 polling socket data
+2022-06-29 21:17:45,939 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.038, 'active_power_l1_w': 12.038}
+2022-06-29 21:17:46,942 INFO PID_6025 polling socket data
+2022-06-29 21:17:46,975 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.032, 'active_power_l1_w': 12.032}
+2022-06-29 21:17:47,978 INFO PID_6025 polling socket data
+2022-06-29 21:17:48,017 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.078, 'active_power_l1_w': 12.078}
+2022-06-29 21:17:49,022 INFO PID_6025 polling socket data
+2022-06-29 21:17:49,068 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.062, 'active_power_l1_w': 12.062}
+2022-06-29 21:17:50,072 INFO PID_6025 polling socket data
+2022-06-29 21:17:50,109 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.049, 'active_power_l1_w': 12.049}
+2022-06-29 21:17:51,110 INFO PID_6025 polling socket data
+2022-06-29 21:17:51,147 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.064, 'active_power_l1_w': 12.064}
+2022-06-29 21:17:52,152 INFO PID_6025 polling socket data
+2022-06-29 21:17:52,182 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 11.974, 'active_power_l1_w': 11.974}
+2022-06-29 21:17:53,184 INFO PID_6025 polling socket data
+2022-06-29 21:17:53,216 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.029, 'active_power_l1_w': 12.029}
+2022-06-29 21:17:54,219 INFO PID_6025 polling socket data
+2022-06-29 21:17:54,265 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.037, 'active_power_l1_w': 12.037}
+2022-06-29 21:17:55,269 INFO PID_6025 polling socket data
+2022-06-29 21:17:55,298 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.043, 'active_power_l1_w': 12.043}
+2022-06-29 21:17:56,300 INFO PID_6025 polling socket data
+2022-06-29 21:17:56,343 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.036, 'active_power_l1_w': 12.036}
+2022-06-29 21:17:57,347 INFO PID_6025 polling socket data
+2022-06-29 21:17:57,380 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.046, 'active_power_l1_w': 12.046}
+2022-06-29 21:17:58,384 INFO PID_6025 polling socket data
+2022-06-29 21:17:58,453 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.032, 'active_power_l1_w': 12.032}
+2022-06-29 21:17:59,458 INFO PID_6025 polling socket data
+2022-06-29 21:17:59,505 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.078, 'active_power_l1_w': 12.078}
+2022-06-29 21:18:00,508 INFO PID_6025 polling socket data
+2022-06-29 21:18:00,556 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.041, 'active_power_l1_w': 12.041}
+2022-06-29 21:18:01,559 INFO PID_6025 polling socket data
+2022-06-29 21:18:01,592 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 96, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.073, 'active_power_l1_w': 12.073}
+2022-06-29 21:18:02,595 INFO PID_6025 polling socket data
+2022-06-29 21:18:02,632 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.046, 'active_power_l1_w': 12.046}
+2022-06-29 21:18:03,635 INFO PID_6025 polling socket data
+2022-06-29 21:18:03,682 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.071, 'active_power_l1_w': 12.071}
+2022-06-29 21:18:04,685 INFO PID_6025 polling socket data
+2022-06-29 21:18:04,734 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.054, 'active_power_l1_w': 12.054}
+2022-06-29 21:18:05,735 INFO PID_6025 polling socket data
+2022-06-29 21:18:05,769 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.058, 'active_power_l1_w': 12.058}
+2022-06-29 21:18:06,772 INFO PID_6025 polling socket data
+2022-06-29 21:18:06,805 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.086, 'active_power_l1_w': 12.086}
+2022-06-29 21:18:07,810 INFO PID_6025 polling socket data
+2022-06-29 21:18:07,845 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.091, 'active_power_l1_w': 12.091}
+2022-06-29 21:18:08,849 INFO PID_6025 polling socket data
+2022-06-29 21:18:08,878 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 94, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.064, 'active_power_l1_w': 12.064}
+2022-06-29 21:18:09,879 INFO PID_6025 polling socket data
+2022-06-29 21:18:09,917 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.1, 'active_power_l1_w': 12.1}
+2022-06-29 21:18:10,921 INFO PID_6025 polling socket data
+2022-06-29 21:18:10,959 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.027, 'active_power_l1_w': 12.027}
+2022-06-29 21:18:11,964 INFO PID_6025 polling socket data
+2022-06-29 21:18:12,001 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.044, 'active_power_l1_w': 12.044}
+2022-06-29 21:18:13,003 INFO PID_6025 polling socket data
+2022-06-29 21:18:13,049 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.1, 'active_power_l1_w': 12.1}
+2022-06-29 21:18:14,054 INFO PID_6025 polling socket data
+2022-06-29 21:18:14,090 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.044, 'active_power_l1_w': 12.044}
+2022-06-29 21:18:15,095 INFO PID_6025 polling socket data
+2022-06-29 21:18:15,138 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.031, 'active_power_l1_w': 12.031}
+2022-06-29 21:18:16,141 INFO PID_6025 polling socket data
+2022-06-29 21:18:16,179 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.04, 'active_power_l1_w': 12.04}
+2022-06-29 21:18:17,182 INFO PID_6025 polling socket data
+2022-06-29 21:18:17,226 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.036, 'active_power_l1_w': 12.036}
+2022-06-29 21:18:18,228 INFO PID_6025 polling socket data
+2022-06-29 21:18:18,265 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.068, 'active_power_l1_w': 12.068}
+2022-06-29 21:18:19,268 INFO PID_6025 polling socket data
+2022-06-29 21:18:19,306 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 92, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.064, 'active_power_l1_w': 12.064}
+2022-06-29 21:18:20,312 INFO PID_6025 polling socket data
+2022-06-29 21:18:20,348 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.013, 'active_power_l1_w': 12.013}
+2022-06-29 21:18:21,352 INFO PID_6025 polling socket data
+2022-06-29 21:18:21,422 INFO PID_6025 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 11.815, 'active_power_l1_w': 11.815}
+2022-06-29 21:18:22,427 INFO PID_6025 polling socket data
+2022-06-29 21:34:39,070 ERROR PID_6358 error connecting to socket
+2022-06-29 21:34:41,074 INFO PID_6358 socket found, connecting..
+2022-06-29 21:34:41,080 INFO PID_6358 sending data to server
+2022-06-29 21:34:41,094 ERROR PID_6358 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x10b374dc0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10b374dc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10b374dc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:35:24,577 ERROR PID_6409 error connecting to socket
+2022-06-29 21:35:26,578 INFO PID_6409 socket found, connecting..
+2022-06-29 21:35:26,582 INFO PID_6409 sending data to server
+2022-06-29 21:35:26,592 ERROR PID_6409 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x10bbc6dc0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10bbc6dc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x10bbc6dc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:35:36,454 ERROR PID_6434 error connecting to socket
+2022-06-29 21:35:38,458 INFO PID_6434 socket found, connecting..
+2022-06-29 21:35:38,464 INFO PID_6434 sending data to server
+2022-06-29 21:35:38,474 ERROR PID_6434 error connecting to server
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x107bdadc0>: Failed to establish a new connection: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107bdadc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 34, in send_data_to_server
+    requests.post('http://localhost:5000/', json=measurements)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107bdadc0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2022-06-29 21:35:38,660 INFO PID_6434 Connected to smart plug with ip address: 192.168.178.220
+2022-06-29 21:35:38,660 INFO PID_6434 polling socket data
+2022-06-29 21:35:38,692 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 82, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.404, 'active_power_l1_w': 12.404}
+2022-06-29 21:35:39,697 INFO PID_6434 polling socket data
+2022-06-29 21:35:39,840 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.404, 'active_power_l1_w': 12.404}
+2022-06-29 21:35:40,840 INFO PID_6434 polling socket data
+2022-06-29 21:35:40,882 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.404, 'active_power_l1_w': 12.404}
+2022-06-29 21:35:41,885 INFO PID_6434 polling socket data
+2022-06-29 21:35:41,923 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.403, 'active_power_l1_w': 12.403}
+2022-06-29 21:35:42,928 INFO PID_6434 polling socket data
+2022-06-29 21:35:42,967 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.399, 'active_power_l1_w': 12.399}
+2022-06-29 21:35:43,970 INFO PID_6434 polling socket data
+2022-06-29 21:35:44,002 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.394, 'active_power_l1_w': 12.394}
+2022-06-29 21:35:45,007 INFO PID_6434 polling socket data
+2022-06-29 21:35:45,137 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 76, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.362, 'active_power_l1_w': 12.362}
+2022-06-29 21:35:46,139 INFO PID_6434 polling socket data
+2022-06-29 21:35:46,198 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.368, 'active_power_l1_w': 12.368}
+2022-06-29 21:35:47,203 INFO PID_6434 polling socket data
+2022-06-29 21:35:47,243 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.401, 'active_power_l1_w': 12.401}
+2022-06-29 21:35:48,246 INFO PID_6434 polling socket data
+2022-06-29 21:35:48,283 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 80, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.397, 'active_power_l1_w': 12.397}
+2022-06-29 21:35:49,286 INFO PID_6434 polling socket data
+2022-06-29 21:35:49,325 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 44, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.388, 'active_power_l1_w': 12.388}
+2022-06-29 21:35:50,330 INFO PID_6434 polling socket data
+2022-06-29 21:35:50,365 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 52, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.206, 'active_power_l1_w': 12.206}
+2022-06-29 21:35:51,369 INFO PID_6434 polling socket data
+2022-06-29 21:35:51,411 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.183, 'active_power_l1_w': 12.183}
+2022-06-29 21:35:52,415 INFO PID_6434 polling socket data
+2022-06-29 21:37:07,583 ERROR PID_6434 error fetching data from socket
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 60] Operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x107bfa910>: Failed to establish a new connection: [Errno 60] Operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.178.220', port=80): Max retries exceeded with url: /api/v1/data (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107bfa910>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 53, in poll_socket_data
+    r = requests.get(f"http://{ipaddr}/api/v1/data")
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.178.220', port=80): Max retries exceeded with url: /api/v1/data (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107bfa910>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+2022-06-29 21:37:09,590 INFO PID_6434 polling socket data
+2022-06-29 21:38:24,775 ERROR PID_6434 error fetching data from socket
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 60] Operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/usr/local/Cellar/python@3.9/3.9.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x107ce02b0>: Failed to establish a new connection: [Errno 60] Operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 785, in urlopen
+    retries = retries.increment(
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.178.220', port=80): Max retries exceeded with url: /api/v1/data (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107ce02b0>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/src/main.py", line 53, in poll_socket_data
+    r = requests.get(f"http://{ipaddr}/api/v1/data")
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/jarnojellesma/development/HWE-SKT-proxy/venv/lib/python3.9/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.178.220', port=80): Max retries exceeded with url: /api/v1/data (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107ce02b0>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+2022-06-29 21:38:26,783 INFO PID_6434 polling socket data
+2022-06-29 21:38:38,763 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.327, 'active_power_l1_w': 12.327}
+2022-06-29 21:38:39,764 INFO PID_6434 polling socket data
+2022-06-29 21:38:39,805 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.286, 'active_power_l1_w': 12.286}
+2022-06-29 21:38:40,808 INFO PID_6434 polling socket data
+2022-06-29 21:38:40,841 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.256, 'active_power_l1_w': 12.256}
+2022-06-29 21:38:41,845 INFO PID_6434 polling socket data
+2022-06-29 21:38:41,883 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.187, 'active_power_l1_w': 12.187}
+2022-06-29 21:38:42,887 INFO PID_6434 polling socket data
+2022-06-29 21:38:42,928 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 90, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.252, 'active_power_l1_w': 12.252}
+2022-06-29 21:38:43,933 INFO PID_6434 polling socket data
+2022-06-29 21:38:44,085 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.22, 'active_power_l1_w': 12.22}
+2022-06-29 21:38:45,091 INFO PID_6434 polling socket data
+2022-06-29 21:38:45,129 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.265, 'active_power_l1_w': 12.265}
+2022-06-29 21:38:46,131 INFO PID_6434 polling socket data
+2022-06-29 21:38:46,169 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.237, 'active_power_l1_w': 12.237}
+2022-06-29 21:38:47,173 INFO PID_6434 polling socket data
+2022-06-29 21:38:47,207 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.245, 'active_power_l1_w': 12.245}
+2022-06-29 21:38:48,212 INFO PID_6434 polling socket data
+2022-06-29 21:38:48,245 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 88, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.208, 'active_power_l1_w': 12.208}
+2022-06-29 21:38:49,246 INFO PID_6434 polling socket data
+2022-06-29 21:38:49,286 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 86, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.23, 'active_power_l1_w': 12.23}
+2022-06-29 21:38:50,288 INFO PID_6434 polling socket data
+2022-06-29 21:38:50,331 INFO PID_6434 received: {'wifi_ssid': 'Roderick', 'wifi_strength': 84, 'total_power_import_t1_kwh': 0.058, 'total_power_export_t1_kwh': 0, 'active_power_w': 12.216, 'active_power_l1_w': 12.216}
+2022-06-29 21:38:51,332 INFO PID_6434 polling socket data
