@@ -59,7 +59,7 @@ def start_smart_plug_poller():
 
 def main():
     start_smart_plug_poller()
-    # start_queue_worker()
+    start_queue_worker()
 
 
 if __name__ == "__main__":
