@@ -33,7 +33,9 @@ def send_data_to_server(measurements):
     # TODO: API Authorization
     logger.info("sending data to server")
     try:
-        requests.post('http://localhost:5000/', json=measurements)
+        requests.post('http://localhost:5000/', json=measurements, headers={
+            "Authorization": "secret"
+        })
     except requests.exceptions.ConnectionError as e:
         logger.error("error connecting to server", exc_info=e)
 
