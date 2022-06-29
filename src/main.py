@@ -7,7 +7,7 @@ import logging
 import logging.handlers
 
 POLL_PLUG_DATA_SLEEP = 1
-QUEUE_WORKER_SLEEP = 30
+QUEUE_WORKER_SLEEP = 1
 SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 
@@ -23,9 +23,10 @@ logging.basicConfig(
   level=logging.INFO,
   format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
 )
+
 logger = logging.getLogger(__name__)
 queue = q.Queue()
-
+quit = False
 
 def send_data_to_server(measurements):
     # TODO: Dynamic url to differentiate between raspberries
@@ -37,7 +38,7 @@ def send_data_to_server(measurements):
         logger.error("error connecting to server", exc_info=e)
 
 def start_queue_worker():
-    while True:
+    while not quit:
         measurements = []
         while not queue.empty():
             measurements.append(queue.get())
@@ -63,7 +64,7 @@ def poll_socket_data(ipaddr):
 
 class MyListener(ServiceListener):
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        global ipaddr
+        global ipaddr, quit
         try:
             info = zc.get_service_info(type_, name)
             addr = info.addresses[0]
@@ -72,13 +73,14 @@ class MyListener(ServiceListener):
             poll_socket_data(ipaddr)
         except Exception as e:
             logger.exception(e)
+            quit = True
             sys.exit(1)
         
 
 def start_socket_data_poller():
     devices = []
 
-    while SOCKET_DEVICE_NAME not in devices:
+    while SOCKET_DEVICE_NAME not in devices and not quit:
         devices = ZeroconfServiceTypes.find()
         logger.error("error connecting to socket")
         time.sleep(SOCKET_CONN_ERR_SLEEP)
