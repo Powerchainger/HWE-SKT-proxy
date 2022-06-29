@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  proxy:
+    image: powerchainger/hwe-skt-proxy
+    build: .
+    container_name: proxy
+    restart: always
+  watchtower:
+    image: containrrr/watchtower
+    depends_on:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: proxy --interval 300 --debug
+    container_name: watchtower
+    
+    
+    
