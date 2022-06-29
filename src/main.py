@@ -1,12 +1,13 @@
 from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
 import requests
 import time
+import sys
 import queue as q
 import logging
 import logging.handlers
 
 POLL_PLUG_DATA_SLEEP = 1
-QUEUE_WORKER_SLEEP = 30000000
+QUEUE_WORKER_SLEEP = 30
 SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 
@@ -35,7 +36,6 @@ def send_data_to_server(measurements):
     except requests.exceptions.ConnectionError as e:
         logger.error("error connecting to server", exc_info=e)
 
-
 def start_queue_worker():
     while True:
         measurements = []
@@ -50,7 +50,7 @@ def poll_socket_data(ipaddr):
         logger.info("polling socket data")
         try:
             r = requests.get(f"http://{ipaddr}/api/v1/data")
-        except requests.exceptions.ConnectionError as e:
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
             logger.error("error fetching data from socket", exc_info=e)
             time.sleep(SOCKET_CONN_ERR_SLEEP)
             continue
@@ -64,12 +64,16 @@ def poll_socket_data(ipaddr):
 class MyListener(ServiceListener):
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
         global ipaddr
-        info = zc.get_service_info(type_, name)
-        addr = info.addresses[0]
-        ipaddr = ".".join([str(b) for b in addr])
-        logger.info(f"Connected to smart plug with ip address: {ipaddr}")
-        poll_socket_data(ipaddr)
-
+        try:
+            info = zc.get_service_info(type_, name)
+            addr = info.addresses[0]
+            ipaddr = ".".join([str(b) for b in addr])
+            logger.info(f"Connected to smart plug with ip address: {ipaddr}")
+            poll_socket_data(ipaddr)
+        except Exception as e:
+            logger.exception(e)
+            sys.exit(1)
+        
 
 def start_socket_data_poller():
     devices = []
