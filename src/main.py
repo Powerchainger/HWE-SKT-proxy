@@ -2,16 +2,24 @@ from zeroconf import ServiceBrowser, ServiceListener, Zeroconf
 import requests
 import time
 import queue as q
+import logging
 
+POLL_PLUG_DATA_SLEEP = 1
+QUEUE_WORKER_SLEEP = 5
+
+logger = logging.getLogger(__name__)
 queue = q.Queue()
 
 
 def send_data_to_server(measurements):
-    # TODO: Failure sending data to server
     # TODO: Dynamic url to differentiate between raspberries
     # TODO: API Authorization
-    requests.post('http://localhost:5000/', json=measurements)
-    print(measurements)
+    print("sending data to server")
+    try:
+        requests.post('http://localhost:5000/', json=measurements)
+        print(measurements)
+    except requests.exceptions.ConnectionError as e:
+        logger.error("error connecting to server", exc_info=e)
 
 
 def start_queue_worker():
@@ -20,7 +28,7 @@ def start_queue_worker():
         while not queue.empty():
             measurements.append(queue.get())
         send_data_to_server(measurements)
-        time.sleep(5)
+        time.sleep(QUEUE_WORKER_SLEEP)
 
 
 def poll_plug_data(ipaddr):
@@ -30,7 +38,7 @@ def poll_plug_data(ipaddr):
         data = r.json()
         data["timestamp"] = time.time()
         queue.put(data)
-        time.sleep(1)
+        time.sleep(POLL_PLUG_DATA_SLEEP)
 
 
 class MyListener(ServiceListener):
@@ -51,7 +59,7 @@ def start_smart_plug_poller():
 
 def main():
     start_smart_plug_poller()
-    start_queue_worker()
+    # start_queue_worker()
 
 
 if __name__ == "__main__":
