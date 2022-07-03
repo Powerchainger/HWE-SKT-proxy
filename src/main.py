@@ -12,21 +12,22 @@ SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 
 logging.basicConfig(
-  handlers=[
-    logging.StreamHandler(),
-    logging.handlers.RotatingFileHandler(
-      'proxy.log',
-      maxBytes=10240000,
-      backupCount=5
-    )
-  ],
-  level=logging.INFO,
-  format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
+    handlers=[
+        logging.StreamHandler(),
+        logging.handlers.RotatingFileHandler(
+            'proxy.log',
+            maxBytes=10240000,
+            backupCount=5
+        )
+    ],
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
 )
 
 logger = logging.getLogger(__name__)
 queue = q.Queue()
 quit = False
+
 
 def send_data_to_server(measurements):
     # TODO: Dynamic url to differentiate between raspberries
@@ -38,6 +39,7 @@ def send_data_to_server(measurements):
         })
     except requests.exceptions.ConnectionError as e:
         logger.error("error connecting to server", exc_info=e)
+
 
 def start_queue_worker():
     while not quit:
@@ -77,7 +79,7 @@ class MyListener(ServiceListener):
             logger.exception(e)
             quit = True
             sys.exit(1)
-        
+
 
 def start_socket_data_poller():
     devices = []
@@ -86,7 +88,7 @@ def start_socket_data_poller():
         devices = ZeroconfServiceTypes.find()
         logger.error("error connecting to socket")
         time.sleep(SOCKET_CONN_ERR_SLEEP)
-    
+
     logger.info("socket found, connecting..")
     # ServiceBrowser is started async
     ServiceBrowser(Zeroconf(), SOCKET_DEVICE_NAME, MyListener())
