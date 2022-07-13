@@ -2,14 +2,20 @@ from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceT
 import requests
 import time
 import sys
+import dotenv
+import os
 import queue as q
 import logging
 import logging.handlers
+
+dotenv.load_dotenv()
 
 POLL_PLUG_DATA_SLEEP = 1
 QUEUE_WORKER_SLEEP = 1
 SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
+API_TOKEN = os.environ["API_TOKEN"]
+USER = os.environ["USER"]
 
 logging.basicConfig(
     handlers=[
@@ -30,12 +36,10 @@ quit = False
 
 
 def send_data_to_server(measurements):
-    # TODO: Dynamic url to differentiate between raspberries
-    # TODO: API Authorization
     logger.info("sending data to server")
     try:
-        requests.post('http://localhost:5000/', json=measurements, headers={
-            "Authorization": "secret"
+        requests.post(f'http://localhost:5000/measurements{USER}', json=measurements, headers={
+            "Authorization": API_TOKEN
         })
     except requests.exceptions.ConnectionError as e:
         logger.error("error connecting to server", exc_info=e)
