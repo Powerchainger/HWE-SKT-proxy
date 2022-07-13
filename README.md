@@ -26,3 +26,5 @@ touch docker-compose.yml
 ```
 sudo docker-compose up
 ```
+
+8. Connect energy socket by holding the button until it blinks blue, then connect to the wifi of the energy socket using the Homewizard Energy app.
