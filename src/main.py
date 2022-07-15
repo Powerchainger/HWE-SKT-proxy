@@ -15,7 +15,7 @@ QUEUE_WORKER_SLEEP = 1
 SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 API_TOKEN = os.environ["API_TOKEN"]
-USER = os.environ["USER"]
+USER = os.environ["RASPBERRY_USER"]
 
 logging.basicConfig(
     handlers=[
@@ -38,7 +38,7 @@ quit = False
 def send_data_to_server(measurements):
     logger.info("sending data to server")
     try:
-        requests.post(f'http://localhost:5000/measurements{USER}', json=measurements, headers={
+        requests.post(f'http://localhost:5000/measurements/{USER}', json=measurements, headers={
             "Authorization": API_TOKEN
         })
     except requests.exceptions.ConnectionError as e:
