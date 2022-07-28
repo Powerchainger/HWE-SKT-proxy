@@ -5,10 +5,10 @@ route get default | grep gateway
 
 2. 
 ```
-nmap -sP 192.168.0.1/24
+nmap 192.168.0.1/24
 ```
 
-3. Found e.g. 192.168.0.102
+3. Search for ip address of Raspberry. You can recognize it by the open ports (only port 22 for ssh by default)
 ```
 ssh ubuntu@192.168.0.102
 ```

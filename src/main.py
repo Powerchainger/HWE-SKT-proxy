@@ -16,6 +16,7 @@ SOCKET_CONN_ERR_SLEEP = 2
 SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
 API_TOKEN = os.environ["API_TOKEN"]
 USERID = os.environ["RASPBERRY_USER_ID"]
+HOST = os.environ['API_HOST']
 
 logging.basicConfig(
     handlers=[
@@ -38,7 +39,7 @@ quit = False
 def send_data_to_server(measurements):
     logger.info("sending data to server")
     try:
-        requests.post(f'http://localhost:5000/users/{USERID}/measurements', json=measurements, headers={
+        requests.post(f'{HOST}/users/{USERID}/measurements', json=measurements, headers={
             "Authorization": API_TOKEN
         })
     except requests.exceptions.ConnectionError as e:

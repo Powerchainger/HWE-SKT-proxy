@@ -4,6 +4,8 @@ services:
     image: powerchainger/hwe-skt-proxy
     build: .
     container_name: proxy
+    env_file:
+      - .env
     network_mode: "host"
     restart: always
 
