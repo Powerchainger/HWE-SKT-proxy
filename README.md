@@ -22,9 +22,16 @@ touch docker-compose.yml
 
 6. Copy docker-compose content from HWE-SKT-proxy
 
-7. Start application
+7. Remove "build" argument in docker-compose config
+
+8. Pull images
+```
+sudo docker-compose pull
+```
+
+9. Start application
 ```
 sudo docker-compose up
 ```
 
-8. Connect energy socket by holding the button until it blinks blue, then connect to the wifi of the energy socket using the Homewizard Energy app.
+10. Connect energy socket by holding the button until it blinks blue, then connect to the wifi of the energy socket using the Homewizard Energy app.

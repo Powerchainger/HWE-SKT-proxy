@@ -12,8 +12,8 @@ dotenv.load_dotenv()
 
 POLL_PLUG_DATA_SLEEP = 1
 QUEUE_WORKER_SLEEP = 1
-SOCKET_CONN_ERR_SLEEP = 2
-SOCKET_DEVICE_NAME = "_hwenergy._tcp.local."
+SMART_PLUG_CONN_ERR_SLEEP = 2
+SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
 API_TOKEN = os.environ["API_TOKEN"]
 USERID = os.environ["RASPBERRY_USER_ID"]
 HOST = os.environ['API_HOST']
@@ -55,14 +55,14 @@ def start_queue_worker():
         time.sleep(QUEUE_WORKER_SLEEP)
 
 
-def poll_socket_data(ipaddr):
+def poll_smart_plug_data(ipaddr):
     while True:
-        logger.info("polling socket data")
+        logger.info("polling smart plug data")
         try:
             r = requests.get(f"http://{ipaddr}/api/v1/data")
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
-            logger.error("error fetching data from socket", exc_info=e)
-            time.sleep(SOCKET_CONN_ERR_SLEEP)
+            logger.error("error fetching data from smart plug", exc_info=e)
+            time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
             continue
         data = r.json()
         logger.info(f"received: {data}")
@@ -79,28 +79,28 @@ class MyListener(ServiceListener):
             addr = info.addresses[0]
             ipaddr = ".".join([str(b) for b in addr])
             logger.info(f"Connected to smart plug with ip address: {ipaddr}")
-            poll_socket_data(ipaddr)
+            poll_smart_plug_data(ipaddr)
         except Exception as e:
             logger.exception(e)
             quit = True
             sys.exit(1)
 
 
-def start_socket_data_poller():
+def start_smart_plug_data_poller():
     devices = []
 
-    while SOCKET_DEVICE_NAME not in devices and not quit:
+    while SMART_PLUG_DEVICE_NAME not in devices and not quit:
         devices = ZeroconfServiceTypes.find()
-        logger.error("error connecting to socket")
-        time.sleep(SOCKET_CONN_ERR_SLEEP)
+        logger.error("error connecting to smart plug")
+        time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
 
-    logger.info("socket found, connecting..")
+    logger.info("smart plug found, connecting..")
     # ServiceBrowser is started async
-    ServiceBrowser(Zeroconf(), SOCKET_DEVICE_NAME, MyListener())
+    ServiceBrowser(Zeroconf(), SMART_PLUG_DEVICE_NAME, MyListener())
 
 
 def main():
-    start_socket_data_poller()
+    start_smart_plug_data_poller()
     start_queue_worker()
 
 
