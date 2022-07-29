@@ -11,12 +11,11 @@ services:
 
   watchtower:
     image: containrrr/watchtower
-    depends_on:
-      - proxy
+    container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - proxy
     command: proxy --interval 300 --debug
-    container_name: watchtower
-    
-    
+    restart: always
     
