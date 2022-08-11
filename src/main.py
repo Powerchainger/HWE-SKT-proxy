@@ -18,6 +18,8 @@ API_TOKEN = os.environ["API_TOKEN"]
 USERID = os.environ["RASPBERRY_USER_ID"]
 HOST = os.environ['API_HOST']
 
+BUILD='0.0.1'
+
 logging.basicConfig(
     handlers=[
         logging.StreamHandler(),
@@ -67,6 +69,7 @@ def poll_smart_plug_data(ipaddr):
         data = r.json()
         logger.info(f"received: {data}")
         data["timestamp"] = time.time()
+        data["build"] = BUILD
         queue.put(data)
         time.sleep(POLL_PLUG_DATA_SLEEP)
 
