@@ -18,7 +18,12 @@ SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
 API_TOKEN = os.environ["API_TOKEN"]
 USERID = os.environ["RASPBERRY_USER_ID"]
 HOST = os.environ['API_HOST']
-OWNER = os.environ['USER']
+
+# Set variables locally
+
+OWNER = os.environ['USER'] = ""
+API_URL = os.environ['API_URL'] = ""
+API_PORT = os.environ['API_PORT'] = ""
 
 BUILD='0.0.1'
 
@@ -39,13 +44,11 @@ logger = logging.getLogger(__name__)
 queue = q.Queue()
 quit = False
 
-#http://77.172.199.5:8080
-
 def send_data_to_server(measurements):
     json = {"measurements": measurements, "owner": OWNER}
     logger.info("sending data to server")
     try:
-        response = requests.post("http://shambuwu.com:8000/data/data_entry/", json=json, headers={
+        response = requests.post(f"http://{API_URL}:{API_PORT}/data/data_entry/", json=json, headers={
             "Authorization": API_TOKEN,
             "Measurement-Type": "HWE-SKT-Proxy"
         })
