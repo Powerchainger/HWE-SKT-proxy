@@ -25,6 +25,7 @@ OWNER = os.environ['USER'] = ""
 API_URL = os.environ['API_URL'] = ""
 API_PORT = os.environ['API_PORT'] = ""
 
+
 BUILD='0.0.1'
 
 logging.basicConfig(
@@ -45,10 +46,10 @@ queue = q.Queue()
 quit = False
 
 def send_data_to_server(measurements):
-    json = {"measurements": measurements, "owner": OWNER}
+    json = {"measurements": measurements, "owner": 'kevin'}
     logger.info("sending data to server")
     try:
-        response = requests.post(f"http://{API_URL}:{API_PORT}/data/data_entry/", json=json, headers={
+        response = requests.post(f"http://shambuwu.com:8080/data/data_entry/", json=json, headers={
             "Authorization": API_TOKEN,
             "Measurement-Type": "HWE-SKT-Proxy"
         })
@@ -81,8 +82,6 @@ def poll_smart_plug_data(ipaddr, serial):
         data["build"] = BUILD
         data["serial"] = serial
         queue.put(data)
-        time.sleep(POLL_PLUG_DATA_SLEEP)
-
 
 class MyListener(ServiceListener):
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
