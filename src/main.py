@@ -18,6 +18,8 @@ SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
 API_TOKEN = os.environ["API_TOKEN"]
 USERID = os.environ["RASPBERRY_USER_ID"]
 HOST = os.environ['API_HOST']
+P1_READER_IP_ADDR = "192.168.2.17"
+
 
 # Set variables locally
 
@@ -26,7 +28,7 @@ API_URL = os.environ['API_URL'] = ""
 API_PORT = os.environ['API_PORT'] = ""
 
 
-BUILD='0.0.1'
+BUILD='0.0.2'
 
 logging.basicConfig(
     handlers=[
@@ -77,11 +79,13 @@ def poll_smart_plug_data(ipaddr, serial):
             time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
             continue
         data = r.json()
-        logger.info(f"received: {data}")
-        data["timestamp"] = time.time()
+        data["timestamp"] = time.asctime(time.gmtime())
         data["build"] = BUILD
         data["serial"] = serial
+        logger.info(f"received: {data}")
         queue.put(data)
+        time.sleep(1)
+
 
 class MyListener(ServiceListener):
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
@@ -119,6 +123,9 @@ def start_smart_plug_data_poller():
 
 
 def main():
+    ipaddres = P1_READER_IP_ADDR
+    thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddres, "5c2faf0b84a0"))
+    thread.start()
     start_smart_plug_data_poller()
     start_queue_worker()
 
