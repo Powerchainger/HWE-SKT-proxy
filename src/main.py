@@ -43,21 +43,25 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
 )
 
+threads = []
 logger = logging.getLogger(__name__)
+event = threading.Event()
 queue = q.Queue()
 quit = False
+poll = True
 
 def send_data_to_server(measurements):
-    json = {"measurements": measurements, "owner": 'kevin'}
+    timestamp = time.asctime(time.gmtime())
+    json = {"measurements": measurements, "owner": "kevin", "timestamp": timestamp}
     logger.info("sending data to server")
     try:
-        response = requests.post(f"http://shambuwu.com:8080/data/data_entry/", json=json, headers={
+        response = requests.post(f"http://shambuwu.com:8000/data/data_entry/", json=json, headers={
             "Authorization": API_TOKEN,
             "Measurement-Type": "HWE-SKT-Proxy"
         })
         logger.info(response.text)
     except requests.exceptions.ConnectionError as e:
-        logger.error("error connecting to server", exc_info=e)
+        logger.error("error connecting to server")
 
 
 def start_queue_worker():
@@ -65,11 +69,13 @@ def start_queue_worker():
         measurements = []
         while not queue.empty():
             measurements.append(queue.get())
+            event.clear()
         send_data_to_server(measurements)
         time.sleep(QUEUE_WORKER_SLEEP)
+        event.set()
 
 
-def poll_smart_plug_data(ipaddr, serial):
+def poll_smart_plug_data(ipaddr, serial, event):
     while True:
         logger.info("polling smart plug data")
         try:
@@ -77,14 +83,11 @@ def poll_smart_plug_data(ipaddr, serial):
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
             logger.error("error fetching data from smart plug", exc_info=e)
             time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
-            continue
+            continue   
         data = r.json()
-        data["timestamp"] = time.asctime(time.gmtime())
-        data["build"] = BUILD
         data["serial"] = serial
-        logger.info(f"received: {data}")
         queue.put(data)
-        time.sleep(1)
+        event.wait()
 
 
 class MyListener(ServiceListener):
@@ -96,11 +99,10 @@ class MyListener(ServiceListener):
             ipaddr = ".".join([str(b) for b in addr])
             dev_info = requests.get(f"http://{ipaddr}/api")
             json_info = dev_info.json()
-            logger.info(json_info)
             logger.info(f"Connected to smart plug with ip address: {ipaddr}")
             try:
-                thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddr, json_info["serial"]))
-                thread.start()
+                thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddr, json_info["serial"], event))
+                threads.append(thread)
             except Exception as e:
                 logger.error(f"Could not start polling thread\nError message:{e}")
         except Exception as e:
@@ -123,11 +125,19 @@ def start_smart_plug_data_poller():
 
 
 def main():
-    ipaddres = P1_READER_IP_ADDR
-    thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddres, "5c2faf0b84a0"))
-    thread.start()
+#    ipaddress = P1_READER_IP_ADDR
+#    thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddress, "5c2faf0b84a0"))
+#    threads.append(thread)
+    
     start_smart_plug_data_poller()
+    logger.info("Preparing queue worker...")
+    time.sleep(5)
+    
+    for thread in threads:
+        thread.start()
+        
     start_queue_worker()
+
 
 
 if __name__ == "__main__":
