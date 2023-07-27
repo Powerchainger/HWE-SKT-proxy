@@ -1,144 +1,160 @@
-from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
-import requests
-import time
-import sys
-import dotenv
 import os
-import queue as q
+import time
+import queue
+import threading
+import requests
 import logging
 import logging.handlers
-import threading
+from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
+from dotenv import load_dotenv
 
-dotenv.load_dotenv()
+load_dotenv()
 
-POLL_PLUG_DATA_SLEEP = 1
-QUEUE_WORKER_SLEEP = 1
-SMART_PLUG_CONN_ERR_SLEEP = 2
-SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
-API_TOKEN = os.environ["API_TOKEN"]
-USERID = os.environ["RASPBERRY_USER_ID"]
-HOST = os.environ['API_HOST']
-P1_READER_IP_ADDR = "192.168.2.17"
+class Config:
+    POLL_PLUG_DATA_SLEEP = 1
+    QUEUE_WORKER_SLEEP = 1
+    SMART_PLUG_CONN_ERR_SLEEP = 2
+    SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
+    API_TOKEN = os.getenv("API_TOKEN")
+    USERID = os.getenv("RASPBERRY_USER_ID")
+    HOST = os.getenv('API_HOST')
+    P1_READER_IP_ADDR = "192.168.2.17"
+    OWNER = os.getenv('USER', "")
+    API_URL = os.getenv('API_URL', "")
+    API_PORT = os.getenv('API_PORT', "")
 
-
-# Set variables locally
-
-OWNER = os.environ['USER'] = ""
-API_URL = os.environ['API_URL'] = ""
-API_PORT = os.environ['API_PORT'] = ""
-
-
-BUILD='0.0.2'
-
-logging.basicConfig(
-    handlers=[
-        logging.StreamHandler(),
-        logging.handlers.RotatingFileHandler(
-            'proxy.log',
-            maxBytes=10240000,
-            backupCount=5
+class Logger:
+    def __init__(self):
+        logging.basicConfig(
+            handlers=[
+                logging.StreamHandler(),
+                logging.handlers.RotatingFileHandler(
+                    'proxy.log',
+                    maxBytes=10240000,
+                    backupCount=5
+                )
+            ],
+            level=logging.INFO,
+            format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
         )
-    ],
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
-)
+        self.logger = logging.getLogger(__name__)
 
-threads = []
-logger = logging.getLogger(__name__)
-event = threading.Event()
-queue = q.Queue()
-quit = False
-poll = True
+class QueueWorker(threading.Thread):
+    def __init__(self, data_queue, event, stop_event):
+        super().__init__()
+        self.data_queue = data_queue
+        self.event = event
+        self.stop_event = stop_event
+        self.logger = Logger().logger
 
-def send_data_to_server(measurements):
-    timestamp = time.asctime(time.gmtime())
-    json = {"measurements": measurements, "owner": "kevin", "timestamp": timestamp}
-    logger.info("sending data to server")
-    try:
-        response = requests.post(f"http://shambuwu.com:8000/data/data_entry/", json=json, headers={
-            "Authorization": API_TOKEN,
-            "Measurement-Type": "HWE-SKT-Proxy"
-        })
-        logger.info(response.text)
-    except requests.exceptions.ConnectionError as e:
-        logger.error("error connecting to server")
+    def run(self):
+        while not self.stop_event.is_set():
+            measurements = []
 
+            while not self.data_queue.empty():
+                measurements.append(self.data_queue.get())
+                self.event.clear()
 
-def start_queue_worker():
-    while not quit:
-        measurements = []
-        while not queue.empty():
-            measurements.append(queue.get())
-            event.clear()
-        send_data_to_server(measurements)
-        time.sleep(QUEUE_WORKER_SLEEP)
-        event.set()
+            if measurements:
+                self.send_data_to_server(measurements)
 
+            time.sleep(Config.QUEUE_WORKER_SLEEP)
+            self.event.set()
 
-def poll_smart_plug_data(ipaddr, serial, event):
-    while True:
-        logger.info("polling smart plug data")
+    def send_data_to_server(self, measurements):
+        timestamp = time.asctime(time.gmtime())
+        json_data = {"measurements": measurements, "owner": "levi"}
+        self.logger.info("Sending data to server")
         try:
-            r = requests.get(f"http://{ipaddr}/api/v1/data")
-        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
-            logger.error("error fetching data from smart plug", exc_info=e)
-            time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
-            continue   
-        data = r.json()
-        data["serial"] = serial
-        queue.put(data)
-        event.wait()
+            response = requests.post(f"http://{Config.API_URL}:{Config.API_PORT}/post-measurements", 
+                                     json=json_data, 
+                                     headers={"Authorization": Config.API_TOKEN, "Measurement-Type": "HWE-SKT-Proxy"})
+            if response.ok:
+                self.logger.info(response.text)
+            else:
+                self.logger.error(f"Server returned {response.status_code}: {response.text}")
+        except requests.exceptions.ConnectionError as e:
+            self.logger.error("Error connecting to server", exc_info=e)
 
+class SmartPlugPoller(threading.Thread):
+    def __init__(self, ipaddr, serial, event, data_queue):
+        super().__init__()
+        self.ipaddr = ipaddr
+        self.serial = serial
+        self.event = event
+        self.data_queue = data_queue
+        self.logger = Logger().logger
 
-class MyListener(ServiceListener):
+    def run(self):
+        while not self.event.is_set():
+            self.logger.info("Polling smart plug data")
+            try:
+                r = requests.get(f"http://{self.ipaddr}/api/v1/data")
+                if r.ok:
+                    data = r.json()
+                    data["serial"] = self.serial
+                    data["active_power"] = data["active_power_w"]
+                    self.data_queue.put(data)
+                else:
+                    self.logger.error(f"Smart plug returned {r.status_code}: {r.text}")
+            except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+                self.logger.error("Error fetching data from smart plug", exc_info=e)
+
+            time.sleep(Config.POLL_PLUG_DATA_SLEEP)
+
+class ServiceListenerImpl(ServiceListener):
+    def __init__(self, threads, stop_event, data_queue):
+        self.threads = threads
+        self.stop_event = stop_event
+        self.data_queue = data_queue
+        self.logger = Logger().logger
+
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        global ipaddr, quit
         try:
             info = zc.get_service_info(type_, name)
             addr = info.addresses[0]
-            ipaddr = ".".join([str(b) for b in addr])
+            ipaddr = '.'.join(map(str, addr))
             dev_info = requests.get(f"http://{ipaddr}/api")
-            json_info = dev_info.json()
-            logger.info(f"Connected to smart plug with ip address: {ipaddr}")
-            try:
-                thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddr, json_info["serial"], event))
-                threads.append(thread)
-            except Exception as e:
-                logger.error(f"Could not start polling thread\nError message:{e}")
+            if dev_info.ok:
+                json_info = dev_info.json()
+                if json_info["serial"] not in self.threads:
+                    thread = SmartPlugPoller(ipaddr, json_info["serial"], self.stop_event, self.data_queue)
+                    self.threads[json_info["serial"]] = thread
+                    self.logger.info(f"Connected to smart plug with ip address: {ipaddr}")
+            else:
+                self.logger.error(f"Device info request returned {dev_info.status_code}: {dev_info.text}")
         except Exception as e:
-            logger.exception(e)
-            quit = True
-            sys.exit(1)
-
-
-def start_smart_plug_data_poller():
-    devices = []
-
-    while SMART_PLUG_DEVICE_NAME not in devices and not quit:
-        devices = ZeroconfServiceTypes.find()
-        logger.error("error connecting to smart plug")
-        time.sleep(SMART_PLUG_CONN_ERR_SLEEP)
-
-    logger.info("smart plug found, connecting..")
-    # ServiceBrowser is started async
-    ServiceBrowser(Zeroconf(), SMART_PLUG_DEVICE_NAME, MyListener())
-
+            self.logger.exception(e)
+            self.stop_event.set()
 
 def main():
-#    ipaddress = P1_READER_IP_ADDR
-#    thread = threading.Thread(target=poll_smart_plug_data, args=(ipaddress, "5c2faf0b84a0"))
-#    threads.append(thread)
-    
-    start_smart_plug_data_poller()
-    logger.info("Preparing queue worker...")
-    time.sleep(5)
-    
-    for thread in threads:
-        thread.start()
-        
-    start_queue_worker()
+    logger = Logger().logger
+    stop_event = threading.Event()
+    threads = {}
+    data_queue = queue.Queue()
 
+    try:
+        with Zeroconf() as zeroconf:
+            listener = ServiceListenerImpl(threads, stop_event, data_queue)
+            ServiceBrowser(zeroconf, Config.SMART_PLUG_DEVICE_NAME, listener)
+            logger.info("Preparing queue worker...")
+            time.sleep(8)
+            
+            for thread in threads.values():
+                thread.start()
 
+            queue_worker = QueueWorker(data_queue, threading.Event(), stop_event)
+            queue_worker.start()
+
+            while not stop_event.is_set():
+                time.sleep(1)
+    except Exception as e:
+        logger.exception(e)
+    finally:
+        stop_event.set()
+        for thread in threads.values():
+            thread.join()
 
 if __name__ == "__main__":
     main()
+

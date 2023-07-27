@@ -1,9 +1,0 @@
-version: '3.7'
-services:
-  proxy:
-    image: powerchainger/hwe-skt-proxy
-    container_name: proxy
-    env_file:
-      - .env
-    network_mode: "host"
-    restart: always
