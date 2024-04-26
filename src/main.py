@@ -39,6 +39,13 @@ class Logger:
         )
         self.logger = logging.getLogger(__name__)
 
+def is_connected():
+    try:
+        requests.get("http://www.google.com", timeout=5)
+        return True
+    except requests.ConnectionError:
+        return False
+
 class QueueWorker(threading.Thread):
     def __init__(self, data_queue, event, stop_event):
         super().__init__()
@@ -62,19 +69,23 @@ class QueueWorker(threading.Thread):
             self.event.set()
 
     def send_data_to_server(self, measurements):
-        timestamp = time.asctime(time.gmtime())
-        json_data = {"measurements": measurements, "owner": "levi"}
-        self.logger.info("Sending data to server")
-        try:
-            response = requests.post(f"http://{Config.API_URL}:{Config.API_PORT}/post-measurements", 
-                                     json=json_data, 
-                                     headers={"Authorization": Config.API_TOKEN, "Measurement-Type": "HWE-SKT-Proxy"})
-            if response.ok:
-                self.logger.info(response.text)
-            else:
-                self.logger.error(f"Server returned {response.status_code}: {response.text}")
-        except requests.exceptions.ConnectionError as e:
-            self.logger.error("Error connecting to server", exc_info=e)
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                timestamp = time.asctime(time.gmtime())
+                json_data = {"measurements": measurements, "owner": "levi"}
+                self.logger.info("Sending data to server")
+                response = requests.post(f"http://{Config.API_URL}:{Config.API_PORT}/post-measurements", 
+                                         json=json_data, 
+                                         headers={"Authorization": Config.API_TOKEN, "Measurement-Type": "HWE-SKT-Proxy"})
+                if response.ok:
+                    self.logger.info(response.text)
+                else:
+                    self.logger.error(f"Server returned {response.status_code}: {response.text}")
+                break
+            except requests.exceptions.ConnectionError:
+                self.logger.error("Lost connection to server. Retrying in 5 seconds.")
+                time.sleep(5)
 
 class SmartPlugPoller(threading.Thread):
     def __init__(self, ipaddr, serial, event, data_queue):
@@ -87,7 +98,6 @@ class SmartPlugPoller(threading.Thread):
 
     def run(self):
         while not self.event.is_set():
-            self.logger.info("Polling smart plug data")
             try:
                 r = requests.get(f"http://{self.ipaddr}/api/v1/data")
                 if r.ok:
@@ -97,8 +107,9 @@ class SmartPlugPoller(threading.Thread):
                     self.data_queue.put(data)
                 else:
                     self.logger.error(f"Smart plug returned {r.status_code}: {r.text}")
-            except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
-                self.logger.error("Error fetching data from smart plug", exc_info=e)
+            except requests.exceptions.ConnectionError:
+                self.logger.error("Lost connection to smart plug. Retrying in 5 seconds.")
+                time.sleep(5)
 
             time.sleep(Config.POLL_PLUG_DATA_SLEEP)
 
