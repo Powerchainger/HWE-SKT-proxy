@@ -73,7 +73,7 @@ class QueueWorker(threading.Thread):
         for i in range(max_retries):
             try:
                 timestamp = time.asctime(time.gmtime())
-                json_data = {"measurements": measurements, "owner": "levi"}
+                json_data = {"measurements": measurements, "owner": Config.OWNER}
                 self.logger.info("Sending data to server")
                 response = requests.post(f"http://{Config.API_URL}:{Config.API_PORT}/post-measurements", 
                                          json=json_data, 
