@@ -5,8 +5,10 @@ import threading
 import requests
 import logging
 import logging.handlers
+import json
 from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -67,21 +69,28 @@ class QueueWorker(threading.Thread):
 
             time.sleep(Config.QUEUE_WORKER_SLEEP)
             self.event.set()
-
+    
     def send_data_to_server(self, measurements):
         max_retries = 3
         for i in range(max_retries):
             try:
-                timestamp = time.asctime(time.gmtime())
-                json_data = {"measurements": measurements, "owner": "levi"}
-                self.logger.info("Sending data to server")
-                response = requests.post(f"http://{Config.API_URL}:{Config.API_PORT}/post-measurements", 
-                                         json=json_data, 
-                                         headers={"Authorization": Config.API_TOKEN, "Measurement-Type": "HWE-SKT-Proxy"})
-                if response.ok:
-                    self.logger.info(response.text)
-                else:
-                    self.logger.error(f"Server returned {response.status_code}: {response.text}")
+                for measurement in measurements:
+                    timestamp = int(time.time())
+                    wattage = measurement["active_power"]
+                    json_data = {
+                        "UserId": "9d9746d2-34f0-4b14-ab06-db0681e76d72",
+                        "Timestamp": timestamp,
+                        "Wattage": wattage
+                    }
+                    print(json_data, flush=True)
+                    self.logger.info("Sending data to server")
+                    response = requests.post(f"https://demo.powerchainger.nl/api", 
+                                             data=json.dumps(json_data), 
+                                             headers={"Content-Type": "application/json"})
+                    if response.ok:
+                        self.logger.info(response.text)
+                    else:
+                        self.logger.error(f"Server returned {response.status_code}: {response.text}")
                 break
             except requests.exceptions.ConnectionError:
                 self.logger.error("Lost connection to server. Retrying in 5 seconds.")
