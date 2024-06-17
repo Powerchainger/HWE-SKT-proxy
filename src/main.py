@@ -18,7 +18,7 @@ class Config:
     SMART_PLUG_CONN_ERR_SLEEP = 2
     SMART_PLUG_DEVICE_NAME = "_hwenergy._tcp.local."
     API_TOKEN = os.getenv("API_TOKEN")
-    USERID = os.getenv("RASPBERRY_USER_ID")
+    USERID = os.getenv("USER_ID")
     HOST = os.getenv('API_HOST')
     P1_READER_IP_ADDR = "192.168.2.17"
     OWNER = os.getenv('USER', "")
@@ -78,7 +78,7 @@ class QueueWorker(threading.Thread):
                     timestamp = int(time.time())
                     wattage = measurement["active_power"]
                     json_data = {
-                        "UserId": "9d9746d2-34f0-4b14-ab06-db0681e76d72",
+                        "UserId": Config.USERID,
                         "Timestamp": timestamp,
                         "Wattage": wattage
                     }
