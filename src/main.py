@@ -80,11 +80,13 @@ class QueueWorker(threading.Thread):
         for i in range(max_retries):
             try:
                 for measurement in measurements:
-                    timestamp = int(time.time())
+                    timestamp = int(time.time() * 1_000_000_000) # Because time.time() returns floating point number
                     wattage = measurement["active_power"]
+                    serial = measurement["serial"]
                     json_data = {
                         "UserId": "9d9746d2-34f0-4b14-ab06-db0681e76d72",
                         "Timestamp": timestamp,
+                        "Serial": serial,
                         "Wattage": wattage
                     }
                     print(json_data, flush=True)
