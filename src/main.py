@@ -6,9 +6,19 @@ import requests
 import logging
 import logging.handlers
 import json
+import socketio
 from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceTypes
 from dotenv import load_dotenv
 from datetime import datetime
+
+@sio.event
+def connect():
+    print("Connected to the server")
+    # You can log successful connections here, or trigger actions
+
+@sio.event
+def disconnect():
+    print("Disconnected from the server")
 
 load_dotenv()
 
@@ -47,6 +57,7 @@ def is_connected():
         return True
     except requests.ConnectionError:
         return False
+
 
 class QueueWorker(threading.Thread):
     def __init__(self, data_queue, event, stop_event):
