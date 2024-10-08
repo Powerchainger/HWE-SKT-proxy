@@ -88,25 +88,20 @@ class QueueWorker(threading.Thread):
                 for measurement in measurements:
                     timestamp = int(time.time())
                     wattage = measurement["active_power"]
-                    serial = measurement["serial"]
                     json_data = {
-                        "UserId": Config.USERID,
+                        "UserId": "9d9746d2-34f0-4b14-ab06-db0681e76d72",
                         "Timestamp": timestamp,
                         "Wattage": wattage
                     }
                     print(json_data, flush=True)
                     self.logger.info("Sending data to server")
-                    response = requests.post(f"https://demo.powerchainger.nl/api", 
-                                             data=json.dumps(json_data), 
-                                             headers={"Content-Type": "application/json"})
+
+                    # Send data over the socket connection
+                    sio.emit("json", json_data)
+                    self.logger.info("Data sent over WebSocket")
 
                     with open("./measurements.csv", "a") as csv_file:
                         csv_file.write(f"{timestamp},{serial},{wattage}\n")
-
-                    if response.ok:
-                        self.logger.info(response.text)
-                    else:
-                        self.logger.error(f"Server returned {response.status_code}: {response.text}")
                 break
             except requests.exceptions.ConnectionError:
                 self.logger.error("Lost connection to server. Retrying in 5 seconds.")
@@ -170,6 +165,7 @@ def main():
     data_queue = queue.Queue()
 
     try:
+        sio.connect("ws://localhost:5000")
         with Zeroconf() as zeroconf:
             listener = ServiceListenerImpl(threads, stop_event, data_queue)
             ServiceBrowser(zeroconf, Config.SMART_PLUG_DEVICE_NAME, listener)
