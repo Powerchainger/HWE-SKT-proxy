@@ -77,6 +77,7 @@ class QueueWorker(threading.Thread):
                 for measurement in measurements:
                     timestamp = int(time.time())
                     wattage = measurement["active_power"]
+                    serial = measurement["serial"]
                     json_data = {
                         "UserId": Config.USERID,
                         "Timestamp": timestamp,
@@ -87,6 +88,10 @@ class QueueWorker(threading.Thread):
                     response = requests.post(f"https://demo.powerchainger.nl/api", 
                                              data=json.dumps(json_data), 
                                              headers={"Content-Type": "application/json"})
+
+                    with open("./measurements.csv", "a") as csv_file:
+                        csv_file.write(f"{timestamp},{serial},{wattage}\n")
+
                     if response.ok:
                         self.logger.info(response.text)
                     else:
