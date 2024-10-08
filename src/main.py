@@ -11,6 +11,9 @@ from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceT
 from dotenv import load_dotenv
 from datetime import datetime
 
+sio = socketio.SimpleClient()
+sio.connect("ws://localhost:5000")
+
 load_dotenv()
 
 class Config:
@@ -156,8 +159,6 @@ def main():
     data_queue = queue.Queue()
 
     try:
-        sio = socketio.SimpleClient()
-        sio.connect("ws://localhost:5000")
         with Zeroconf() as zeroconf:
             listener = ServiceListenerImpl(threads, stop_event, data_queue)
             ServiceBrowser(zeroconf, Config.SMART_PLUG_DEVICE_NAME, listener)
