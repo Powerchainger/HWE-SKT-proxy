@@ -11,15 +11,6 @@ from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceT
 from dotenv import load_dotenv
 from datetime import datetime
 
-@sio.event
-def connect():
-    print("Connected to the server")
-    # You can log successful connections here, or trigger actions
-
-@sio.event
-def disconnect():
-    print("Disconnected from the server")
-
 load_dotenv()
 
 class Config:
@@ -165,6 +156,7 @@ def main():
     data_queue = queue.Queue()
 
     try:
+        sio = socketio.SimpleClient()
         sio.connect("ws://localhost:5000")
         with Zeroconf() as zeroconf:
             listener = ServiceListenerImpl(threads, stop_event, data_queue)
