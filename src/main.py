@@ -11,9 +11,6 @@ from zeroconf import ServiceBrowser, ServiceListener, Zeroconf, ZeroconfServiceT
 from dotenv import load_dotenv
 from datetime import datetime
 
-sio = socketio.SimpleClient()
-sio.connect("ws://localhost:5000")
-
 load_dotenv()
 
 class Config:
@@ -28,6 +25,7 @@ class Config:
     OWNER = os.getenv('USER', "")
     API_URL = os.getenv('API_URL', "")
     API_PORT = os.getenv('API_PORT', "")
+    WEBSOCKET_URL = os.getenv('WEBSOCKET_URL', "")
 
 class Logger:
     def __init__(self):
@@ -60,6 +58,36 @@ class QueueWorker(threading.Thread):
         self.event = event
         self.stop_event = stop_event
         self.logger = Logger().logger
+        self.sio = None
+        self.initialize_socket()
+
+    def initialize_socket(self):
+        self.sio = socketio.Client()
+
+        @self.sio.event
+        def connect():
+            self.logger.info("Connected to WebSocket server")
+
+        @self.sio.event
+        def disconnect():
+            self.logger.warning("Disconnected from WebSocket server. Attempting to reconnect...")
+            self.reconnect_socket()
+
+        try:
+            self.sio.connect(Config.WEBSOCKET_URL)
+        except socketio.exceptions.ConnectionError:
+            self.logger.error("Initial connection to WebSocket failed. Starting reconnect attempts...")
+            self.reconnect_socket()
+
+    def reconnect_socket(self):
+        while not self.sio.connected:
+            try:
+                self.sio.connect(Config.WEBSOCKET_URL)
+                if self.sio.connected:
+                    self.logger.info("Reconnected to WebSocket server")
+            except (socketio.exceptions.ConnectionError, OSError) as e:
+                self.logger.warning(f"Reconnection attempt failed. Retrying in 5 seconds...")
+                time.sleep(5)
 
     def run(self):
         while not self.stop_event.is_set():
@@ -93,7 +121,7 @@ class QueueWorker(threading.Thread):
                     self.logger.info("Sending data to server")
 
                     # Send data over the socket connection
-                    sio.emit("json", json_data)
+                    self.sio.emit("json", json_data)
                     self.logger.info("Data sent over WebSocket")
 
                     with open("./measurements.csv", "a") as csv_file:
