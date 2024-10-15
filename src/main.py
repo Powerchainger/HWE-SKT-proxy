@@ -143,18 +143,20 @@ class SmartPlugPoller(threading.Thread):
 
     def run(self):
         while not self.event.is_set():
-            try:
-                r = requests.get(f"http://{self.ipaddr}/api/v1/data")
-                if r.ok:
-                    data = r.json()
-                    data["serial"] = self.serial
-                    data["active_power"] = data["active_power_w"]
-                    self.data_queue.put(data)
-                else:
-                    self.logger.error(f"Smart plug returned {r.status_code}: {r.text}")
-            except requests.exceptions.ConnectionError:
-                self.logger.error("Lost connection to smart plug. Retrying in 5 seconds.")
-                time.sleep(5)
+            while True:
+                try:
+                    r = requests.get(f"http://{self.ipaddr}/api/v1/data")
+                    if r.ok:
+                        data = r.json()
+                        data["serial"] = self.serial
+                        data["active_power"] = data["active_power_w"]
+                        self.data_queue.put(data)
+                        break
+                    else:
+                        self.logger.error(f"Smart plug returned {r.status_code}: {r.text}")
+                except requests.exceptions.ConnectionError:
+                    self.logger.error("Lost connection to smart plug. Retrying in 5 seconds.")
+                    time.sleep(5)
 
             time.sleep(Config.POLL_PLUG_DATA_SLEEP)
 
