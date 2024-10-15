@@ -108,6 +108,7 @@ class QueueWorker(threading.Thread):
         max_retries = 3
         for i in range(max_retries):
             try:
+                num_devices = len(measurements)
                 for measurement in measurements:
                     timestamp = int(time.time() * 1_000_000_000) # Because time.time() returns floating point number
                     wattage = measurement["active_power"]
@@ -118,8 +119,8 @@ class QueueWorker(threading.Thread):
                         "Serial": serial,
                         "Wattage": wattage
                     }
-                    print(json_data, flush=True)
-                    self.logger.info("Sending data to server")
+                    # print(json_data, flush=True)
+                    # self.logger.info("Sending data to server")
 
                     # Send data over the socket connection
                     self.sio.emit("json", json_data)
@@ -127,6 +128,7 @@ class QueueWorker(threading.Thread):
 
                     with open("./measurements.csv", "a") as csv_file:
                         csv_file.write(f"{timestamp},{serial},{wattage}\n")
+                self.logger.info(f"Bulk request sent to server. Contains {num_devices} devices.")
                 break
             except requests.exceptions.ConnectionError:
                 self.logger.error("Lost connection to server. Retrying in 5 seconds.")
