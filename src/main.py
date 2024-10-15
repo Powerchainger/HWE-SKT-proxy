@@ -85,6 +85,7 @@ class QueueWorker(threading.Thread):
                 self.sio.connect(Config.WEBSOCKET_URL)
                 if self.sio.connected:
                     self.logger.info("Reconnected to WebSocket server")
+                    self.run()
             except (socketio.exceptions.ConnectionError, OSError) as e:
                 self.logger.warning(f"Reconnection attempt failed. Retrying in 5 seconds...")
                 time.sleep(5)
