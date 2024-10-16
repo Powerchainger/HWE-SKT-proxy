@@ -13,6 +13,7 @@ from datetime import datetime
 
 load_dotenv()
 
+
 class Config:
     POLL_PLUG_DATA_SLEEP = 1
     QUEUE_WORKER_SLEEP = 1
@@ -26,6 +27,7 @@ class Config:
     API_URL = os.getenv('API_URL', "")
     API_PORT = os.getenv('API_PORT', "")
     WEBSOCKET_URL = os.getenv('WEBSOCKET_URL', "")
+
 
 class Logger:
     def __init__(self):
@@ -42,6 +44,7 @@ class Logger:
             format='%(asctime)s %(levelname)s PID_%(process)d %(message)s'
         )
         self.logger = logging.getLogger(__name__)
+
 
 def is_connected():
     try:
@@ -71,24 +74,6 @@ class QueueWorker(threading.Thread):
         @self.sio.event
         def disconnect():
             self.logger.warning("Disconnected from WebSocket server. Attempting to reconnect...")
-            self.reconnect_socket()
-
-        try:
-            self.sio.connect(Config.WEBSOCKET_URL)
-        except socketio.exceptions.ConnectionError:
-            self.logger.error("Initial connection to WebSocket failed. Starting reconnect attempts...")
-            self.reconnect_socket()
-
-    def reconnect_socket(self):
-        while not self.sio.connected:
-            try:
-                self.sio.connect(Config.WEBSOCKET_URL)
-                if self.sio.connected:
-                    self.logger.info("Reconnected to WebSocket server")
-                    self.run()
-            except (socketio.exceptions.ConnectionError, OSError) as e:
-                self.logger.warning(f"Reconnection attempt failed. Retrying in 5 seconds...")
-                time.sleep(5)
 
     def run(self):
         while not self.stop_event.is_set():
@@ -99,18 +84,21 @@ class QueueWorker(threading.Thread):
                 self.event.clear()
 
             if measurements:
-                self.send_data_to_server(measurements)
+                if self.sio.connected:
+                    self.send_data_to_server(measurements)
+                else:
+                    self.logger.warning("WebSocket server is disconnected. Measurements are being stored locally.")
 
             time.sleep(Config.QUEUE_WORKER_SLEEP)
             self.event.set()
-    
+
     def send_data_to_server(self, measurements):
         max_retries = 3
         for i in range(max_retries):
             try:
                 num_devices = len(measurements)
                 for measurement in measurements:
-                    timestamp = int(time.time() * 1_000_000_000) # Because time.time() returns floating point number
+                    timestamp = int(time.time() * 1_000_000_000)  # Because time.time() returns floating point number
                     wattage = measurement["active_power"]
                     serial = measurement["serial"]
                     json_data = {
@@ -133,6 +121,7 @@ class QueueWorker(threading.Thread):
             except requests.exceptions.ConnectionError:
                 self.logger.error("Lost connection to server. Retrying in 5 seconds.")
                 time.sleep(5)
+
 
 class SmartPlugPoller(threading.Thread):
     def __init__(self, ipaddr, serial, event, data_queue):
@@ -162,6 +151,7 @@ class SmartPlugPoller(threading.Thread):
 
             time.sleep(Config.POLL_PLUG_DATA_SLEEP)
 
+
 class ServiceListenerImpl(ServiceListener):
     def __init__(self, threads, stop_event, data_queue):
         self.threads = threads
@@ -187,6 +177,7 @@ class ServiceListenerImpl(ServiceListener):
             self.logger.exception(e)
             self.stop_event.set()
 
+
 def main():
     logger = Logger().logger
     stop_event = threading.Event()
@@ -199,7 +190,7 @@ def main():
             ServiceBrowser(zeroconf, Config.SMART_PLUG_DEVICE_NAME, listener)
             logger.info("Preparing queue worker...")
             time.sleep(8)
-            
+
             for thread in threads.values():
                 thread.start()
 
@@ -215,6 +206,6 @@ def main():
         for thread in threads.values():
             thread.join()
 
+
 if __name__ == "__main__":
     main()
-
