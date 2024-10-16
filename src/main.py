@@ -66,6 +66,7 @@ class QueueWorker(threading.Thread):
 
     def initialize_socket(self):
         self.sio = socketio.Client()
+        sio.connect(Config.WEBSOCKET_URL)
 
         @self.sio.event
         def connect():
