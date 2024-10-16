@@ -105,7 +105,7 @@ class QueueWorker(threading.Thread):
             try:
                 num_devices = len(measurements)
                 for measurement in measurements:
-                    timestamp = int(time.time() * 1_000_000_000)  # Because time.time() returns floating point number
+                    timestamp = measurement["timestamp"]
                     wattage = measurement["active_power"]
                     serial = measurement["serial"]
                     json_data = {
@@ -148,6 +148,7 @@ class SmartPlugPoller(threading.Thread):
                         data = r.json()
                         data["serial"] = self.serial
                         data["active_power"] = data["active_power_w"]
+                        data["timestamp"] = int(time.time() * 1_000_000_000)
                         self.data_queue.put(data)
                         break
                     else:
