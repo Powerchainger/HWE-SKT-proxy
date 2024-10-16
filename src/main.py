@@ -62,6 +62,7 @@ class QueueWorker(threading.Thread):
         self.stop_event = stop_event
         self.logger = Logger().logger
         self.sio = None
+        self.unsent_data = []
         self.initialize_socket()
 
     def initialize_socket(self):
@@ -87,8 +88,13 @@ class QueueWorker(threading.Thread):
             if measurements:
                 if self.sio.connected:
                     self.send_data_to_server(measurements)
+                    if self.unsent_data:
+                        self.logger.info("Sending unsent data to server")
+                        self.send_data_to_server(self.unsent_data)
+                        self.unsent_data.clear()
                 else:
                     self.logger.warning("WebSocket server is disconnected. Measurements are being stored locally.")
+                    self.unsent_data.extend(measurements)
 
             time.sleep(Config.QUEUE_WORKER_SLEEP)
             self.event.set()
