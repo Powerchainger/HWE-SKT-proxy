@@ -1,0 +1,5 @@
+CODEOWNERS @Powerchainger/platform-admins
+/.github/ @Powerchainger/platformers
+Dockerfile @Powerchainger/platformers
+devops/ @Powerchainger/platformers
+* @Powerchainger/backenders
